@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
   </head>
-  <body class="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:bg-gray-50 text-gray-900 antialiased">
+  <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 dark:bg-white border-b shadow-lg dark:zenn-border">
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-10">
       <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center justify-between flex-wrap gap-4">
           <div class="flex items-center space-x-3 md:space-x-4 min-w-0">
@@ -51,7 +51,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <!-- システムフロー -->
         <div class="lg:col-span-2">
-          <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
             <div class="p-6">
               <h3 class="text-xl font-semibold text-gray-900 mb-6">システムフロー</h3>
               <div class="flex justify-center">
@@ -70,9 +70,9 @@
         </div>
 
         <!-- アラート -->
-        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
               アラート
             </h3>
@@ -83,10 +83,10 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <!-- 成型機センサー設定 -->
-        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              <i class="fas fa-sliders-h text-gray-600 mr-2"></i>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+              <i class="fas fa-sliders-h text-gray-600 dark:text-gray-400 mr-2"></i>
               成型機センサー設定
             </h3>
             <div class="space-y-6" id="settings">
@@ -144,10 +144,10 @@
         </div>
 
         <!-- データ可視化 -->
-        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              <i class="fas fa-chart-line text-gray-600 mr-2"></i>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+              <i class="fas fa-chart-line text-gray-600 dark:text-gray-400 mr-2"></i>
               データ可視化
             </h3>
             <div id="chart" class="bg-gray-50 rounded-lg p-4" style="height:240px;"></div>
@@ -171,10 +171,10 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <!-- API Gateway ログ -->
-        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">
-              <i class="fas fa-terminal text-gray-600 mr-2"></i>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              <i class="fas fa-terminal text-gray-600 dark:text-gray-400 mr-2"></i>
               API Gateway ログ
             </h3>
             <div id="log" class="bg-gray-900 text-green-400 p-4 rounded-lg h-48 overflow-auto font-mono text-sm whitespace-pre-wrap"></div>
@@ -190,10 +190,10 @@
         </div>
 
         <!-- S3 保存 -->
-        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
           <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-4">
-              <i class="fas fa-database text-gray-600 mr-2"></i>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+              <i class="fas fa-database text-gray-600 dark:text-gray-400 mr-2"></i>
               保存 (S3 模擬)
             </h3>
             <div class="mb-4">
@@ -207,7 +207,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 dark:bg-white border-t border-blue-300 dark:border-gray-200 mt-16 shadow-xl">
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
       <div class="max-w-4xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <!-- Left Section -->
@@ -223,8 +223,8 @@
           
           <!-- Right Section -->
           <div class="text-right">
-            <p class="text-sm text-white dark:text-gray-600 mb-1">🏭 射出成型異常検知デモ</p>
-            <p class="text-xs text-blue-100 dark:text-gray-500">Lambda & S3 連携による品質管理システム</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-1">🏭 射出成型異常検知デモ</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Lambda & S3 連携による品質管理システム</p>
           </div>
         </div>
         
