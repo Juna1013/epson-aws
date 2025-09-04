@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <title>Amazon S3とは？ - セイコーエプソン インターン</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
@@ -60,189 +61,34 @@
       </header>
 
       <!-- Article Content -->
-      <article class="bg-white rounded-xl zenn-shadow zenn-border">
-        <!-- サーバーレスの概要 -->
-        <div class="p-6 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">サーバーレスとは？</h2>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組みです。
-            実際にはサーバーは存在しますが、開発者や運用者がサーバーの管理を行う必要がありません。
-          </p>
-
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">インフラ形態の比較</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="border-b border-gray-200">
-                  <th class="px-4 py-3 text-left font-medium text-gray-900">形態</th>
-                  <th class="px-4 py-3 text-left font-medium text-gray-900">管理方法</th>
-                  <th class="px-4 py-3 text-left font-medium text-gray-900">メリット</th>
-                  <th class="px-4 py-3 text-left font-medium text-gray-900">デメリット</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-100">
-                <tr>
-                  <td class="px-4 py-3">
-                    <div class="flex items-center">
-                      <i class="fas fa-server text-red-600 mr-2"></i>
-                      <strong>オンプレミス</strong>
-                    </div>
-                  </td>
-                  <td class="px-4 py-3 text-gray-600">物理サーバーを自社で管理</td>
-                  <td class="px-4 py-3 text-green-600">自由度が高い</td>
-                  <td class="px-4 py-3 text-red-600">用意するのに時間がかかる</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3">
-                    <div class="flex items-center">
-                      <i class="fas fa-cloud text-blue-600 mr-2"></i>
-                      <strong>仮想サーバー (EC2)</strong>
-                    </div>
-                  </td>
-                  <td class="px-4 py-3 text-gray-600">クラウド上の仮想サーバーを管理</td>
-                  <td class="px-4 py-3 text-green-600">柔軟性と管理のバランス</td>
-                  <td class="px-4 py-3 text-orange-600">運用管理が必要</td>
-                </tr>
-                <tr class="bg-orange-50">
-                  <td class="px-4 py-3">
-                    <div class="flex items-center">
-                      <i class="fas fa-magic text-orange-600 mr-2"></i>
-                      <strong>サーバーレス (S3)</strong>
-                    </div>
-                  </td>
-                  <td class="px-4 py-3 text-gray-600">サーバーを意識せずに利用</td>
-                  <td class="px-4 py-3 text-green-600">完全管理不要・自動スケーリング</td>
-                  <td class="px-4 py-3 text-gray-400">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Amazon S3の詳細 -->
-        <div class="p-6 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Amazon S3の特徴</h2>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            AWSが提供するオブジェクトストレージサービスです。サーバーレス構成において、
-            ファイルやデータを保存するための基盤として重要な役割を果たします。
-          </p>
-
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">主要な仕様</h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <div class="text-center py-3">
-              <div class="text-2xl font-bold text-blue-600 mb-1">99.999999999%</div>
-              <div class="text-sm text-gray-600">データ耐久性</div>
-            </div>
-            <div class="text-center py-3">
-              <div class="text-2xl font-bold text-green-600 mb-1">無制限</div>
-              <div class="text-sm text-gray-600">ストレージ容量</div>
-            </div>
-            <div class="text-center py-3">
-              <div class="text-2xl font-bold text-purple-600 mb-1">200+</div>
-              <div class="text-sm text-gray-600">機能とサービス</div>
-            </div>
-            <div class="text-center py-3">
-              <div class="text-2xl font-bold text-orange-600 mb-1">全世界</div>
-              <div class="text-sm text-gray-600">利用可能</div>
-            </div>
-          </div>
-
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">主要機能</h3>
-          <div class="space-y-4">
-            <div class="flex items-start space-x-3">
-              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-shield-alt text-blue-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">セキュリティ</h4>
-                <p class="text-gray-600 text-sm">暗号化、アクセス管理、脅威検出などの包括的なセキュリティ機能</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-expand-arrows-alt text-green-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">スケーラビリティ</h4>
-                <p class="text-gray-600 text-sm">データ量やアクセス数の増加に応じた自動スケーリング</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <div class="w-8 h-8 bg-orange-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-dollar-sign text-orange-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">従量課金制</h4>
-                <p class="text-gray-600 text-sm">使用した分だけ支払う従量課金制でコスト最適化</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3">
-              <div class="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-cogs text-purple-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">他サービス連携</h4>
-                <p class="text-gray-600 text-sm">AWSの他サービスとの柔軟な組み合わせ</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 実用例 -->
-        <div class="p-6">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">エプソンでの活用例</h2>
-          <p class="text-gray-600 mb-6">製造業務におけるサーバーレス技術の具体的な活用方法</p>
-
-          <div class="space-y-4">
-            <div class="flex items-start space-x-3 py-3">
-              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-images text-green-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">製品画像・カタログの管理</h4>
-                <p class="text-gray-600 text-sm">大量の製品画像や技術資料をS3に保存し、必要な時だけアクセス</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3 py-3">
-              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-chart-line text-blue-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">データ分析基盤</h4>
-                <p class="text-gray-600 text-sm">製造ログや品質データを安全に長期保存し、分析に活用</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-3 py-3">
-              <div class="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <i class="fas fa-handshake text-purple-600"></i>
-              </div>
-              <div>
-                <h4 class="font-medium text-gray-900 mb-1">外部連携</h4>
-                <p class="text-gray-600 text-sm">パートナー企業との安全なデータ共有やAPI連携</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <article id="markdown-content" class="prose dark:prose-invert lg:prose-xl max-w-none bg-white rounded-xl zenn-shadow zenn-border p-6">
+        <!-- Markdown content will be rendered here -->
       </article>
 
       <!-- Navigation -->
       <nav class="mt-12 pt-8 border-t border-gray-200">
-        <div class="flex items-center justify-between">
-          <a href="index.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
-            <i class="fas fa-arrow-left"></i>
-            <span>記事一覧に戻る</span>
+        <h2 class="text-xl font-bold text-gray-900 mb-6">他の記事を読む</h2>
+        <div class="nav-tiles">
+          <a href="index.html" class="nav-tile">
+            <div>
+              <h3 class="nav-tile-title">記事一覧に戻る</h3>
+              <p class="nav-tile-description">全ての記事の一覧ページに戻ります。</p>
+            </div>
+            <div class="nav-tile-link">
+              <span>もっと見る</span>
+              <i class="fas fa-arrow-right icon"></i>
+            </div>
           </a>
-          <div class="flex items-center space-x-4">
-            <a href="s3-merits.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
-              <span>S3のメリット・デメリット</span>
-              <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
+          <a href="s3-merits.html" class="nav-tile">
+            <div>
+              <h3 class="nav-tile-title">S3のメリット・デメリット</h3>
+              <p class="nav-tile-description">S3の利点と欠点、そしてEC2との比較について解説します。</p>
+            </div>
+            <div class="nav-tile-link">
+              <span>もっと見る</span>
+              <i class="fas fa-arrow-right icon"></i>
+            </div>
+          </a>
         </div>
       </nav>
     </main>
@@ -286,6 +132,51 @@
       </div>
     </footer>
 
+    <script type="text/markdown" id="markdown-source">
+# サーバーレスとは？
+
+サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組みです。
+実際にはサーバーは存在しますが、開発者や運用者がサーバーの管理を行う必要がありません。
+
+### インフラ形態の比較
+
+| 形態 | 管理方法 | メリット | デメリット |
+| :--- | :--- | :--- | :--- |
+| **オンプレミス** | 物理サーバーを自社で管理 | 自由度が高い | 用意するのに時間がかかる |
+| **仮想サーバー (EC2)** | クラウド上の仮想サーバーを管理 | 柔軟性と管理のバランス | 運用管理が必要 |
+| **サーバーレス (S3)** | サーバーを意識せずに利用 | 完全管理不要・自動スケーリング | - |
+
+## Amazon S3の特徴
+
+AWSが提供するオブジェクトストレージサービスです。サーバーレス構成において、
+ファイルやデータを保存するための基盤として重要な役割を果たします。
+
+### 主要な仕様
+
+- **データ耐久性:** 99.999999999%
+- **ストレージ容量:** 無制限
+- **機能とサービス:** 200+
+- **利用可能:** 全世界
+
+### 主要機能
+
+- **セキュリティ:** 暗号化、アクセス管理、脅威検出などの包括的なセキュリティ機能
+- **スケーラビリティ:** データ量やアクセス数の増加に応じた自動スケーリング
+- **従量課金制:** 使用した分だけ支払う従量課金制でコスト最適化
+- **他サービス連携:** AWSの他サービスとの柔軟な組み合わせ
+
+## エプソンでの活用例
+
+製造業務におけるサーバーレス技術の具体的な活用方法
+
+- **製品画像・カタログの管理:** 大量の製品画像や技術資料をS3に保存し、必要な時だけアクセス
+- **データ分析基盤:** 製造ログや品質データを安全に長期保存し、分析に活用
+- **外部連携:** パートナー企業との安全なデータ共有やAPI連携
+    </script>
     <script src="../assets/js/theme.js"></script>
+    <script>
+      const markdownText = document.getElementById('markdown-source').textContent;
+      document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
+    </script>
   </body>
 </html>

@@ -4,93 +4,11 @@
     <meta charset="UTF-8" />
     <title>S3のメリット・デメリット詳細 - セイコーエプソン インターン</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      }
-      .zenn-shadow {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      }
-      .zenn-border {
-        border: 1px solid #e4e4e7;
-      }
-      
-      /* Dark mode styles */
-      .dark {
-        color-scheme: dark;
-      }
-      
-      .dark body {
-        background-color: #0d1117;
-        color: #e6edf3;
-      }
-      
-      .dark .bg-white {
-        background-color: #161b22 !important;
-      }
-      
-      .dark .bg-gray-50 {
-        background-color: #0d1117 !important;
-      }
-      
-      .dark .text-gray-900 {
-        color: #e6edf3 !important;
-      }
-      
-      .dark .text-gray-600 {
-        color: #8b949e !important;
-      }
-      
-      .dark .text-gray-500 {
-        color: #656d76 !important;
-      }
-      
-      .dark .border-gray-200 {
-        border-color: #30363d !important;
-      }
-      
-      .dark .border-gray-100 {
-        border-color: #21262d !important;
-      }
-      
-      .dark .divide-gray-100 {
-        border-color: #21262d !important;
-      }
-      
-      /* Dark mode toggle button */
-      .theme-toggle {
-        position: relative;
-        width: 50px;
-        height: 24px;
-        background: #30363d;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      
-      .theme-toggle::before {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 20px;
-        height: 20px;
-        background: #e6edf3;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
-      
-      .dark .theme-toggle {
-        background: #58a6ff;
-      }
-      
-      .dark .theme-toggle::before {
-        transform: translateX(26px);
-        background: #ffffff;
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
@@ -141,227 +59,34 @@
       </header>
 
       <!-- Article Content -->
-      <article class="bg-white rounded-xl shadow-sm border">
-        <!-- 概要 -->
-        <div class="p-6 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Amazon S3の特徴分析</h2>
-          <p class="text-gray-600 leading-relaxed">
-            軽量・高速・低コスト・サーバーレス・セキュア・スケーラブルという特徴を持つオブジェクトストレージサービスの
-            エプソンでの業務活用における利点と制約を詳しく分析します。
-          </p>
-        </div>
-
-        <!-- メリット詳細 -->
-        <div class="p-6 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-green-600 mb-4">
-            <i class="fas fa-check-circle mr-2"></i>主要メリット
-          </h2>
-          <p class="text-gray-600 mb-6">S3を活用することで得られる具体的なメリット</p>
-          
-          <div class="space-y-6">
-            <div class="pb-4">
-              <div class="flex items-start space-x-3 mb-3">
-                <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <i class="fas fa-server text-green-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-medium text-green-800 mb-2">サーバーレスで管理が不要</h3>
-                  <p class="text-gray-700 text-sm mb-3">
-                    AWSが完全にインフラを管理するため、ユーザーはサーバー構築・保守・運用を一切考える必要がありません。
-                  </p>
-                </div>
-              </div>
-              <ul class="text-sm text-gray-600 space-y-1 ml-11">
-                <li>• ハードウェア調達・設置不要</li>
-                <li>• サーバー監視・メンテナンス不要</li>
-                <li>• 障害対応はAWSが自動実行</li>
-              </ul>
-            </div>
-
-            <div class="pb-4">
-              <div class="flex items-start space-x-3 mb-3">
-                <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <i class="fas fa-dollar-sign text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-medium text-blue-800 mb-2">使用時のみ課金</h3>
-                  <p class="text-gray-700 text-sm mb-3">
-                    実際に使用したストレージ容量とデータ転送量のみに課金されます。
-                  </p>
-                </div>
-              </div>
-              <ul class="text-sm text-gray-600 space-y-1 ml-11">
-                <li>• 初期投資・固定費用なし</li>
-                <li>• 使用量に応じた従量制課金</li>
-                <li>• 未使用時はコスト発生なし</li>
-              </ul>
-            </div>
-
-            <div class="pb-4">
-              <div class="flex items-start space-x-3 mb-3">
-                <div class="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <i class="fas fa-shield-alt text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-medium text-purple-800 mb-2">OSアップデート不要</h3>
-                  <p class="text-gray-700 text-sm mb-3">
-                    セキュリティパッチやOSアップデートはAWSが自動的に適用します。
-                  </p>
-                </div>
-              </div>
-              <ul class="text-sm text-gray-600 space-y-1 ml-11">
-                <li>• セキュリティパッチ自動適用</li>
-                <li>• システム停止時間なし</li>
-                <li>• 運用チームの負荷軽減</li>
-              </ul>
-            </div>
-
-            <div class="pb-4">
-              <div class="flex items-start space-x-3 mb-3">
-                <div class="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <i class="fas fa-expand-arrows-alt text-indigo-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-medium text-indigo-800 mb-2">容量無制限・自動スケーリング</h3>
-                  <p class="text-gray-700 text-sm mb-3">
-                    データ容量の制限がなく、アクセス増加に応じて自動調整されます。
-                  </p>
-                </div>
-              </div>
-              <ul class="text-sm text-gray-600 space-y-1 ml-11">
-                <li>• 理論上無制限のストレージ容量</li>
-                <li>• アクセス数に応じた自動調整</li>
-                <li>• 事前の容量計画不要</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- デメリット詳細 -->
-        <div class="p-6 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-red-600 mb-4">
-            <i class="fas fa-exclamation-triangle mr-2"></i>制約・デメリット
-          </h2>
-          <p class="text-gray-600 mb-6">S3を利用する際の制約と対応策</p>
-          
-          <div class="space-y-6">
-            <div class="pb-4">
-              <h3 class="font-medium text-red-800 mb-2 flex items-start">
-                <i class="fas fa-exclamation-circle text-red-600 mr-2 mt-1 flex-shrink-0"></i>
-                動的処理ができない
-              </h3>
-              <p class="text-gray-700 text-sm mb-3 ml-6">
-                静的ファイルの保存・配信に特化しており、リアルタイムなデータ処理や動的コンテンツ生成はできません。
-              </p>
-              <div class="bg-red-50 border-l-4 border-red-300 p-3 rounded ml-6">
-                <p class="text-sm text-gray-700"><strong>補完方法：</strong>Lambdaで動的生成、CloudFrontでキャッシュ制御</p>
-              </div>
-            </div>
-
-            <div class="pb-4">
-              <h3 class="font-medium text-orange-800 mb-2 flex items-start">
-                <i class="fas fa-exclamation-circle text-orange-600 mr-2 mt-1 flex-shrink-0"></i>
-                複雑な処理には不向き
-              </h3>
-              <p class="text-gray-700 text-sm mb-3 ml-6">
-                重い計算処理や機械学習モデルの実行には適していません。
-              </p>
-              <div class="bg-orange-50 border-l-4 border-orange-300 p-3 rounded ml-6">
-                <p class="text-sm text-gray-700"><strong>補完方法：</strong>SageMakerやEC2と連携して高度な処理を実現</p>
-              </div>
-            </div>
-
-            <div class="pb-4">
-              <h3 class="font-medium text-yellow-800 mb-2 flex items-start">
-                <i class="fas fa-exclamation-circle text-yellow-600 mr-2 mt-1 flex-shrink-0"></i>
-                初回アクセス時に遅延の可能性
-              </h3>
-              <p class="text-gray-700 text-sm mb-3 ml-6">
-                コールドスタートやデータの物理的な場所により、初回アクセス時に若干の遅延が発生する場合があります。
-              </p>
-              <div class="bg-yellow-50 border-l-4 border-yellow-300 p-3 rounded ml-6">
-                <p class="text-sm text-gray-700"><strong>補完方法：</strong>CloudFrontで高速化、適切なリージョン選択</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- EC2との比較 -->
-        <div class="p-6">
-          <h2 class="text-2xl font-bold text-blue-600 mb-4">
-            <i class="fas fa-balance-scale mr-2"></i>EC2との比較
-          </h2>
-          <p class="text-gray-600 mb-6">業務利用における優位性の比較</p>
-          
-          <div class="overflow-x-auto mb-6">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="border-b border-gray-200">
-                  <th class="px-4 py-3 text-left font-medium text-gray-900">項目</th>
-                  <th class="px-4 py-3 text-left font-medium text-blue-600">S3</th>
-                  <th class="px-4 py-3 text-left font-medium text-gray-600">EC2</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-100">
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">運用負荷</td>
-                  <td class="px-4 py-3 text-green-600">低（サーバーレス）</td>
-                  <td class="px-4 py-3 text-red-600">高（OS管理・保守）</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">コスト</td>
-                  <td class="px-4 py-3 text-green-600">使用時のみ課金</td>
-                  <td class="px-4 py-3 text-red-600">常時稼働で課金</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">スケーラビリティ</td>
-                  <td class="px-4 py-3 text-green-600">自動・無制限</td>
-                  <td class="px-4 py-3 text-orange-600">手動・制限あり</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">セキュリティ制御</td>
-                  <td class="px-4 py-3 text-green-600">URL単位・IAMで柔軟</td>
-                  <td class="px-4 py-3 text-orange-600">OS・アプリレベルで複雑</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">静的コンテンツ配信</td>
-                  <td class="px-4 py-3 text-green-600">直接ホスト可能</td>
-                  <td class="px-4 py-3 text-red-600">Webサーバー構築が必要</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-gray-900">イベント駆動処理</td>
-                  <td class="px-4 py-3 text-green-600">Lambda連携で自動化</td>
-                  <td class="px-4 py-3 text-red-600">自前でスクリプト管理が必要</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h3 class="font-medium text-blue-900 mb-2 flex items-center">
-              <i class="fas fa-lightbulb mr-2"></i>結論
-            </h3>
-            <p class="text-blue-800 text-sm">
-              製品販売支援・社内業務効率化・データ分析・外部連携など、エプソンの幅広い業務においてS3が優位性を発揮できます。
-              特に静的コンテンツの配信、イベント駆動型処理、大量データの保存・分析に最適です。
-            </p>
-          </div>
-        </div>
+      <article id="markdown-content" class="prose dark:prose-invert lg:prose-xl max-w-none bg-white rounded-xl zenn-shadow zenn-border p-6">
+        <!-- Markdown content will be rendered here -->
       </article>
 
       <!-- Navigation -->
       <nav class="mt-12 pt-8 border-t border-gray-200">
-        <div class="flex items-center justify-between">
-          <a href="s3.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
-            <i class="fas fa-arrow-left"></i>
-            <span>サーバーレスとは？</span>
+        <h2 class="text-xl font-bold text-gray-900 mb-6">他の記事を読む</h2>
+        <div class="nav-tiles">
+          <a href="s3.html" class="nav-tile">
+            <div>
+              <h3 class="nav-tile-title">サーバーレスとは？</h3>
+              <p class="nav-tile-description">サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組みについて解説します。</p>
+            </div>
+            <div class="nav-tile-link">
+              <span>もっと見る</span>
+              <i class="fas fa-arrow-right icon"></i>
+            </div>
           </a>
-          <div class="flex items-center space-x-4">
-            <a href="epson-proposals.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
-              <span>EPSON運用提案</span>
-              <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
+          <a href="epson-proposals.html" class="nav-tile">
+            <div>
+              <h3 class="nav-tile-title">EPSON社内での運用提案</h3>
+              <p class="nav-tile-description">AWSを活用した製造業務の効率化と品質向上策を具体的に提案します。</p>
+            </div>
+            <div class="nav-tile-link">
+              <span>もっと見る</span>
+              <i class="fas fa-arrow-right icon"></i>
+            </div>
+          </a>
         </div>
       </nav>
     </main>
@@ -405,6 +130,78 @@
       </div>
     </footer>
 
+    <script type="text/markdown" id="markdown-source">
+# S3のメリット・デメリット詳細分析
+
+Amazon S3の特徴を詳細に分析し、エプソンでの業務活用における利点と制約を解説します。
+
+## Amazon S3の特徴分析
+
+軽量・高速・低コスト・サーバーレス・セキュア・スケーラブルという特徴を持つオブジェクトストレージサービスのエプソンでの業務活用における利点と制約を詳しく分析します。
+
+## 主要メリット
+
+S3を活用することで得られる具体的なメリット
+
+### サーバーレスで管理が不要
+AWSが完全にインフラを管理するため、ユーザーはサーバー構築・保守・運用を一切考える必要がありません。
+- ハードウェア調達・設置不要
+- サーバー監視・メンテナンス不要
+- 障害対応はAWSが自動実行
+
+### 使用時のみ課金
+実際に使用したストレージ容量とデータ転送量のみに課金されます。
+- 初期投資・固定費用なし
+- 使用量に応じた従量制課金
+- 未使用時はコスト発生なし
+
+### OSアップデート不要
+セキュリティパッチやOSアップデートはAWSが自動的に適用します。
+- セキュリティパッチ自動適用
+- システム停止時間なし
+- 運用チームの負荷軽減
+
+### 容量無制限・自動スケーリング
+データ容量の制限がなく、アクセス増加に応じて自動調整されます。
+- 理論上無制限のストレージ容量
+- アクセス数に応じた自動調整
+- 事前の容量計画不要
+
+## 制約・デメリット
+
+S3を利用する際の制約と対応策
+
+### 動的処理ができない
+静的ファイルの保存・配信に特化しており、リアルタイムなデータ処理や動的コンテンツ生成はできません。
+**補完方法：**Lambdaで動的生成、CloudFrontでキャッシュ制御
+
+### 複雑な処理には不向き
+重い計算処理や機械学習モデルの実行には適していません。
+**補完方法：**SageMakerやEC2と連携して高度な処理を実現
+
+### 初回アクセス時に遅延の可能性
+コールドスタートやデータの物理的な場所により、初回アクセス時に若干の遅延が発生する場合があります。
+**補完方法：**CloudFrontで高速化、適切なリージョン選択
+
+## EC2との比較
+
+業務利用における優位性の比較
+
+| 項目 | S3 | EC2 |
+| :--- | :--- | :--- |
+| 運用負荷 | 低（サーバーレス） | 高（OS管理・保守） |
+| コスト | 使用時のみ課金 | 常時稼働で課金 |
+| スケーラビリティ | 自動・無制限 | 手動・制限あり |
+| セキュリティ制御 | URL単位・IAMで柔軟 | OS・アプリレベルで複雑 |
+| 静的コンテンツ配信 | 直接ホスト可能 | Webサーバー構築が必要 |
+| イベント駆動処理 | Lambda連携で自動化 | 自前でスクリプト管理が必要 |
+
+**結論:** 製品販売支援・社内業務効率化・データ分析・外部連携など、エプソンの幅広い業務においてS3が優位性を発揮できます。特に静的コンテンツの配信、イベント駆動型処理、大量データの保存・分析に最適です。
+    </script>
     <script src="../assets/js/theme.js"></script>
+    <script>
+      const markdownText = document.getElementById('markdown-source').textContent;
+      document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
+    </script>
   </body>
 </html>
