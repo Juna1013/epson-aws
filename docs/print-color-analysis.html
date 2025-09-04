@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
   </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
+  <body class="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
-    <header class="bg-white zenn-border border-b">
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 dark:bg-white border-b shadow-lg dark:zenn-border">
       <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center justify-between flex-wrap gap-4">
           <div class="flex items-center space-x-3 md:space-x-4 min-w-0">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-palette text-white text-sm md:text-lg"></i>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-purple-500 dark:to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+              <i class="fas fa-palette text-purple-600 dark:text-white text-sm md:text-lg"></i>
             </div>
             <div class="min-w-0">
-              <h1 class="text-lg md:text-xl font-semibold text-gray-900 truncate">印刷機色分析</h1>
-              <p class="text-xs md:text-sm text-gray-500 truncate">AWS インターン成果発表 - 色差分析デモ</p>
+              <h1 class="text-lg md:text-xl font-semibold text-white dark:text-gray-900 truncate">印刷機色分析</h1>
+              <p class="text-xs md:text-sm text-blue-100 dark:text-gray-500 truncate">AWS インターン成果発表 - 色差分析デモ</p>
             </div>
           </div>
           <div class="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
@@ -29,7 +29,7 @@
               <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
               <i class="fas fa-moon text-blue-400 text-sm"></i>
             </div>
-            <span class="bg-purple-100 text-purple-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Demo</span>
+            <span class="bg-gradient-to-r from-white to-blue-50 dark:bg-purple-100 text-purple-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium shadow-sm">Demo</span>
           </div>
         </div>
       </div>
@@ -49,12 +49,12 @@
       </div>
 
       <!-- システム構成 -->
-      <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden mb-6">
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden mb-6">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">システム構成</h3>
           <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-2 lg:space-x-4">
             <div class="flex items-center space-x-3 min-w-0">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-200 to-blue-300 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
                 <i class="fas fa-desktop text-blue-600 text-sm md:text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -66,7 +66,7 @@
               <i class="fas fa-arrow-right text-sm"></i>
             </div>
             <div class="flex items-center space-x-3 min-w-0">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-200 to-orange-300 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
                 <i class="fas fa-bolt text-orange-600 text-sm md:text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -78,7 +78,7 @@
               <i class="fas fa-arrow-right text-sm"></i>
             </div>
             <div class="flex items-center space-x-3 min-w-0">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-green-200 to-green-300 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
                 <i class="fas fa-database text-green-600 text-sm md:text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -91,7 +91,7 @@
       </div>
 
       <!-- 基準色とサンプル色 -->
-      <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden mb-6">
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden mb-6">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">基準色とサンプル色</h3>
           <div class="space-y-4 sm:space-y-6">
@@ -106,7 +106,7 @@
               </div>
             </div>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 rounded-lg font-medium transition-colors flex items-center justify-center" id="analyzeBtn">
+              <button class="bg-gradient-to-r from-blue-500 to-cyan-500 dark:bg-blue-600 hover:from-blue-600 hover:to-cyan-600 dark:hover:bg-blue-700 text-white px-4 sm:px-6 py-2 rounded-lg font-medium transition-all shadow-md flex items-center justify-center" id="analyzeBtn">
                 <i class="fas fa-search mr-2"></i>分析する
               </button>
               <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 sm:px-6 py-2 rounded-lg font-medium transition-colors flex items-center justify-center" id="clearBtn">
@@ -119,7 +119,7 @@
       </div>
 
       <!-- ログ -->
-      <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden mb-6">
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden mb-6">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
             <i class="fas fa-terminal text-gray-600 mr-2"></i>
@@ -130,7 +130,7 @@
       </div>
 
       <!-- S3 保存履歴 -->
-      <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden mb-6">
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden mb-6">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
             <i class="fas fa-database text-gray-600 mr-2"></i>
@@ -142,37 +142,37 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 dark:bg-white border-t border-blue-300 dark:border-gray-200 mt-16 shadow-xl">
       <div class="max-w-4xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <!-- Left Section -->
           <div class="flex items-center space-x-4">
-            <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <i class="fas fa-palette text-white text-sm"></i>
+            <div class="w-8 h-8 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-purple-500 dark:to-purple-600 rounded-lg flex items-center justify-center shadow-sm">
+              <i class="fas fa-palette text-purple-600 dark:text-white text-sm"></i>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900 text-sm">印刷機色分析</h3>
-              <p class="text-xs text-gray-500">AWS インターン成果発表 - 色差分析デモ</p>
+              <h3 class="font-semibold text-white dark:text-gray-900 text-sm">印刷機色分析</h3>
+              <p class="text-xs text-blue-100 dark:text-gray-500">AWS インターン成果発表 - 色差分析デモ</p>
             </div>
           </div>
           
           <!-- Right Section -->
           <div class="text-right">
-            <p class="text-sm text-gray-600 mb-1">📊 色差分析デモ</p>
-            <p class="text-xs text-gray-500">Lambda & S3 連携による品質管理システム</p>
+            <p class="text-sm text-white dark:text-gray-600 mb-1">📊 色差分析デモ</p>
+            <p class="text-xs text-blue-100 dark:text-gray-500">Lambda & S3 連携による品質管理システム</p>
           </div>
         </div>
         
         <!-- Bottom Section -->
-        <div class="mt-6 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-          <p class="text-xs text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
-          <div class="flex items-center space-x-4 text-xs text-gray-400">
+        <div class="mt-6 pt-4 border-t border-blue-400 dark:border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <p class="text-xs text-blue-200 dark:text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
+          <div class="flex items-center space-x-4 text-xs text-blue-200 dark:text-gray-400">
             <span class="flex items-center">
               <i class="fas fa-code mr-1"></i>
               Built with AWS
             </span>
             <span class="flex items-center">
-              <i class="fas fa-heart mr-1 text-red-400"></i>
+              <i class="fas fa-heart mr-1 text-pink-300 dark:text-red-400"></i>
               Made with care
             </span>
           </div>

@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
   </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
+  <body class="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
-    <header class="bg-white zenn-border border-b">
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 dark:bg-white border-b shadow-lg dark:zenn-border">
       <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center justify-between flex-wrap gap-4">
           <div class="flex items-center space-x-3 md:space-x-4 min-w-0">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-search text-white text-sm md:text-lg"></i>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-emerald-500 dark:to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+              <i class="fas fa-search text-emerald-600 dark:text-white text-sm md:text-lg"></i>
             </div>
             <div class="min-w-0">
-              <h1 class="text-lg md:text-xl font-semibold text-gray-900 truncate">製品選定アプリ</h1>
-              <p class="text-xs md:text-sm text-gray-500 truncate">AWS インターン成果発表 - 製品推薦デモ</p>
+              <h1 class="text-lg md:text-xl font-semibold text-white dark:text-gray-900 truncate">製品選定アプリ</h1>
+              <p class="text-xs md:text-sm text-blue-100 dark:text-gray-500 truncate">AWS インターン成果発表 - 製品推薦デモ</p>
             </div>
           </div>
           <div class="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
@@ -29,7 +29,7 @@
               <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
               <i class="fas fa-moon text-blue-400 text-sm"></i>
             </div>
-            <span class="bg-emerald-100 text-emerald-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Demo</span>
+            <span class="bg-gradient-to-r from-white to-blue-50 dark:bg-emerald-100 text-emerald-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium shadow-sm">Demo</span>
           </div>
         </div>
       </div>
@@ -49,12 +49,12 @@
       </div>
 
       <!-- System Flow -->
-      <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden mb-8">
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden mb-8">
         <div class="p-6">
           <h3 class="text-xl font-semibold text-gray-900 mb-6">システムフロー</h3>
           <div class="flex items-center justify-between space-x-4 overflow-x-auto">
             <div class="flex items-center space-x-3 min-w-0 flex-1">
-              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-200 to-blue-300 rounded-lg flex items-center justify-center shadow-md">
                 <i class="fas fa-user text-blue-600 text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -66,7 +66,7 @@
               <i class="fas fa-arrow-right"></i>
             </div>
             <div class="flex items-center space-x-3 min-w-0 flex-1">
-              <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+              <div class="w-12 h-12 bg-gradient-to-br from-orange-200 to-orange-300 rounded-lg flex items-center justify-center shadow-md">
                 <i class="fas fa-bolt text-orange-600 text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -78,7 +78,7 @@
               <i class="fas fa-arrow-right"></i>
             </div>
             <div class="flex items-center space-x-3 min-w-0 flex-1">
-              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <div class="w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-lg flex items-center justify-center shadow-md">
                 <i class="fas fa-database text-purple-600 text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -90,7 +90,7 @@
               <i class="fas fa-arrow-right"></i>
             </div>
             <div class="flex items-center space-x-3 min-w-0 flex-1">
-              <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <div class="w-12 h-12 bg-gradient-to-br from-emerald-200 to-emerald-300 rounded-lg flex items-center justify-center shadow-md">
                 <i class="fas fa-gift text-emerald-600 text-lg"></i>
               </div>
               <div class="min-w-0">
@@ -102,76 +102,99 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- 入力フォーム -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              <i class="fas fa-edit text-emerald-600 mr-2"></i>
-              入力条件
-            </h3>
-            <div class="space-y-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  <i class="fas fa-home mr-2 text-blue-500"></i>使用条件
-                </label>
-                <select id="usage" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
-                  <option value="家庭用">🏠 家庭用</option>
-                  <option value="業務用">🏢 業務用</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  <i class="fas fa-yen-sign mr-2 text-green-500"></i>予算 (円)
-                </label>
-                <input type="number" id="budget" placeholder="例: 50000" 
-                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
-                <div class="mt-1 text-xs text-gray-500">希望予算を入力してください</div>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  <i class="fas fa-cogs mr-2 text-purple-500"></i>機能要件
-                </label>
-                <select id="feature" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
-                  <option value="基本">⭐ 基本機能</option>
-                  <option value="高性能">🚀 高性能</option>
-                </select>
-              </div>
-
-              <button onclick="searchProduct()" 
-                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
-                <i class="fas fa-search mr-2"></i>最適製品を検索
+      <!-- チャットボットインターフェース -->
+      <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden max-w-4xl mx-auto">
+        <div class="bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-500 dark:bg-gradient-to-r dark:from-emerald-500 dark:to-emerald-600 p-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-white to-blue-50 rounded-full flex items-center justify-center shadow-sm">
+              <i class="fas fa-robot text-blue-600 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">製品選定AIアシスタント</h3>
+              <p class="text-blue-100 text-sm">あなたに最適な製品を推薦します</p>
+            </div>
+            <div class="flex-1"></div>
+            <div class="flex items-center space-x-1">
+              <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span class="text-blue-100 text-sm">オンライン</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- チャットエリア -->
+        <div id="chatArea" class="h-96 overflow-y-auto p-4 bg-gray-50 space-y-4">
+          <!-- 初期メッセージ -->
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+              <i class="fas fa-robot text-white text-sm"></i>
+            </div>
+            <div class="bg-white p-3 rounded-lg shadow-sm max-w-sm">
+              <p class="text-gray-800">こんにちは！製品選定アシスタントです。🚀</p>
+              <p class="text-gray-600 text-sm mt-1">どちらの製品をお探しですか？</p>
+            </div>
+          </div>
+          
+          <!-- クイックオプション -->
+          <div class="flex justify-center">
+            <div class="space-y-2">
+              <button onclick="sendQuickMessage('家庭用の製品を探しています')" 
+                class="block bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm transition-colors">
+                🏠 家庭用製品を探す
+              </button>
+              <button onclick="sendQuickMessage('業務用の製品を探しています')" 
+                class="block bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded-lg text-sm transition-colors">
+                🏢 業務用製品を探す
+              </button>
+              <button onclick="sendQuickMessage('予算5万円以下でお願いします')" 
+                class="block bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg text-sm transition-colors">
+                💰 予算5万円以下
+              </button>
+              <button onclick="sendQuickMessage('高性能な製品が必要です')" 
+                class="block bg-orange-100 hover:bg-orange-200 text-orange-800 px-4 py-2 rounded-lg text-sm transition-colors">
+                ✨ 高性能製品
               </button>
             </div>
           </div>
         </div>
-
-        <!-- 提案結果 -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 mb-6">
-              <i class="fas fa-gift text-emerald-600 mr-2"></i>
-              提案結果
-            </h3>
-            <div id="result" class="min-h-[200px] flex items-center justify-center text-gray-500">
-              <div class="text-center">
-                <i class="fas fa-search text-4xl text-gray-300 mb-4"></i>
-                <div>条件を入力して検索ボタンを押してください</div>
-              </div>
-            </div>
+        
+        <!-- 入力エリア -->
+        <div class="p-4 border-t border-gray-200">
+          <div class="flex space-x-3">
+            <input type="text" id="userInput" placeholder="製品について何でもお聞かせください..." 
+              class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+              onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()" 
+              class="bg-gradient-to-r from-blue-500 to-cyan-500 dark:bg-emerald-600 hover:from-blue-600 hover:to-cyan-600 dark:hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-md flex items-center">
+              <i class="fas fa-paper-plane"></i>
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- 製品一覧 -->
-      <div class="mt-12">
+
+      <!-- 使い方ガイド -->
+      <div class="mt-12 bg-gradient-to-r from-blue-50 via-cyan-50 to-blue-100 dark:bg-gradient-to-r dark:from-emerald-50 dark:to-blue-50 rounded-xl p-6 border border-blue-200 dark:border-gray-200 shadow-lg">
         <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">
-          <i class="fas fa-th-large mr-2 text-emerald-600"></i>
-          取り扱い製品一覧
+          <i class="fas fa-question-circle mr-2 text-blue-600"></i>
+          チャットボットの使い方
         </h3>
-        <div id="productList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="text-2xl mb-2">💬</div>
+            <h4 class="font-semibold text-gray-900 mb-2">自然な会話</h4>
+            <p class="text-sm text-gray-600">「家庭用の製品を探しています」など、自然な言葉で話しかけてください</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="text-2xl mb-2">🎯</div>
+            <h4 class="font-semibold text-gray-900 mb-2">簡単選択</h4>
+            <p class="text-sm text-gray-600">クイックボタンをクリックするだけで条件を選択できます</p>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="text-2xl mb-2">🤖</div>
+            <h4 class="font-semibold text-gray-900 mb-2">AI推薦</h4>
+            <p class="text-sm text-gray-600">条件に基づいてAIが最適な製品を推薦します</p>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -190,152 +213,276 @@
       localStorage.setItem('products', JSON.stringify(defaultProducts));
     }
 
-    function searchProduct() {
-      const usage = document.getElementById('usage').value;
-      const budget = parseInt(document.getElementById('budget').value, 10);
-      const feature = document.getElementById('feature').value;
+    // チャットボット関連の変数
+    let conversationState = {
+      usage: null,
+      budget: null,
+      feature: null
+    };
 
-      if (isNaN(budget) || budget <= 0) {
-        showError('予算を正しく入力してください');
+    // チャットボットの応答パターン
+    const chatResponses = {
+      '家庭用の製品を探しています': {
+        response: '家庭用製品をお探しですね！👨‍👩‍👧‍👦 予算はどのくらいをお考えでしょうか？',
+        action: () => { conversationState.usage = '家庭用'; showBudgetOptions(); }
+      },
+      '業務用の製品を探しています': {
+        response: '業務用製品をお探しですね！🏢 予算の範囲を教えてください。',
+        action: () => { conversationState.usage = '業務用'; showBudgetOptions(); }
+      },
+      '予算5万円以下でお願いします': {
+        response: '5万円以下ですね！💰 基本機能で十分でしょうか？それとも高性能な機能が必要ですか？',
+        action: () => { conversationState.budget = 50000; showFeatureOptions(); }
+      },
+      '高性能な製品が必要です': {
+        response: '高性能製品をご希望ですね！⚡ 条件を確認して最適な製品を探してみます...',
+        action: () => { conversationState.feature = '高性能'; processRecommendation(); }
+      },
+      '基本機能で大丈夫です': {
+        response: '基本機能でよろしいですね！✨ 条件に合った製品を検索します...',
+        action: () => { conversationState.feature = '基本'; processRecommendation(); }
+      },
+      '予算を教えて': {
+        response: '予算についてですね💰 以下から選択してください',
+        action: () => showBudgetOptions()
+      },
+      'おすすめを教えて': {
+        response: '最適な製品をご提案するために、まず使用用途を教えてください🔍',
+        action: () => showUsageOptions()
+      }
+    };
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      // ユーザーメッセージを追加
+      addMessage(message, 'user');
+      input.value = '';
+      
+      // ボットの応答を処理
+      setTimeout(() => {
+        handleBotResponse(message);
+      }, 500);
+    }
+
+    function sendQuickMessage(message) {
+      addMessage(message, 'user');
+      setTimeout(() => {
+        handleBotResponse(message);
+      }, 500);
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    function addMessage(message, sender) {
+      const chatArea = document.getElementById('chatArea');
+      const messageDiv = document.createElement('div');
+      
+      if (sender === 'user') {
+        messageDiv.className = 'flex items-start space-x-3 justify-end';
+        messageDiv.innerHTML = `
+          <div class="bg-emerald-500 text-white p-3 rounded-lg shadow-sm max-w-sm">
+            <p>${message}</p>
+          </div>
+          <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-user text-white text-sm"></i>
+          </div>
+        `;
+      } else {
+        messageDiv.className = 'flex items-start space-x-3';
+        messageDiv.innerHTML = `
+          <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-robot text-white text-sm"></i>
+          </div>
+          <div class="bg-white p-3 rounded-lg shadow-sm max-w-sm">
+            <p class="text-gray-800">${message}</p>
+          </div>
+        `;
+      }
+      
+      chatArea.appendChild(messageDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function handleBotResponse(userMessage) {
+      // 簡単なパターンマッチング
+      let response = null;
+      
+      for (const [pattern, data] of Object.entries(chatResponses)) {
+        if (userMessage.includes(pattern) || userMessage === pattern) {
+          response = data;
+          break;
+        }
+      }
+      
+      if (!response) {
+        // デフォルトレスポンス
+        if (userMessage.includes('予算') || userMessage.includes('価格') || userMessage.includes('円')) {
+          response = {
+            response: '予算についてお聞かせください💰',
+            action: () => showBudgetOptions()
+          };
+        } else if (userMessage.includes('家庭') || userMessage.includes('ホーム')) {
+          response = chatResponses['家庭用の製品を探しています'];
+        } else if (userMessage.includes('業務') || userMessage.includes('オフィス') || userMessage.includes('会社')) {
+          response = chatResponses['業務用の製品を探しています'];
+        } else {
+          response = {
+            response: '申し訳ございませんが、よくわかりませんでした😅 以下からお選びください',
+            action: () => showUsageOptions()
+          };
+        }
+      }
+      
+      addMessage(response.response, 'bot');
+      if (response.action) {
+        setTimeout(response.action, 1000);
+      }
+    }
+
+    function showUsageOptions() {
+      const chatArea = document.getElementById('chatArea');
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'flex justify-center';
+      optionsDiv.innerHTML = `
+        <div class="space-y-2">
+          <button onclick="sendQuickMessage('家庭用の製品を探しています')" 
+            class="block bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            🏠 家庭用製品
+          </button>
+          <button onclick="sendQuickMessage('業務用の製品を探しています')" 
+            class="block bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            🏢 業務用製品
+          </button>
+        </div>
+      `;
+      chatArea.appendChild(optionsDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function showBudgetOptions() {
+      const chatArea = document.getElementById('chatArea');
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'flex justify-center';
+      optionsDiv.innerHTML = `
+        <div class="space-y-2">
+          <button onclick="sendQuickMessage('予算3万円以下でお願いします'); setBudget(30000)" 
+            class="block bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            💰 3万円以下
+          </button>
+          <button onclick="sendQuickMessage('予算5万円以下でお願いします')" 
+            class="block bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            💰 5万円以下
+          </button>
+          <button onclick="sendQuickMessage('予算10万円以下でお願いします'); setBudget(100000)" 
+            class="block bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            💰 10万円以下
+          </button>
+        </div>
+      `;
+      chatArea.appendChild(optionsDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function showFeatureOptions() {
+      const chatArea = document.getElementById('chatArea');
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'flex justify-center';
+      optionsDiv.innerHTML = `
+        <div class="space-y-2">
+          <button onclick="sendQuickMessage('基本機能で大丈夫です')" 
+            class="block bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            ⭐ 基本機能
+          </button>
+          <button onclick="sendQuickMessage('高性能な製品が必要です')" 
+            class="block bg-orange-100 hover:bg-orange-200 text-orange-800 px-4 py-2 rounded-lg text-sm transition-colors">
+            🚀 高性能
+          </button>
+        </div>
+      `;
+      chatArea.appendChild(optionsDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function setBudget(amount) {
+      conversationState.budget = amount;
+    }
+
+    function processRecommendation() {
+      if (!conversationState.usage || !conversationState.budget || !conversationState.feature) {
+        addMessage('条件が不足しています。最初からやり直してください。', 'bot');
         return;
       }
 
-      // ローディング表示
-      showLoading();
-
-      // Lambda処理をシミュレートするための遅延
       setTimeout(() => {
         const products = JSON.parse(localStorage.getItem('products'));
-
-        // Lambda処理 (フィルタリング + 最適候補選定)
-        const candidates = products.filter(p => p.usage === usage && p.feature === feature && p.price <= budget);
+        const candidates = products.filter(p => 
+          p.usage === conversationState.usage && 
+          p.feature === conversationState.feature && 
+          p.price <= conversationState.budget
+        );
 
         if (candidates.length > 0) {
-          // 価格順でソートして最適製品を選定
           const best = candidates.sort((a,b) => a.price - b.price)[0];
-          showResult(best, candidates.length);
+          showProductRecommendation(best, candidates.length);
         } else {
-          showNoResult();
+          addMessage('申し訳ございません😅 条件に合う製品が見つかりませんでした。条件を変更してもう一度お試しください。', 'bot');
         }
-      }, 800);
+        
+        // 状態をリセット
+        conversationState = { usage: null, budget: null, feature: null };
+      }, 1500);
     }
 
-    function showLoading() {
-      document.getElementById('result').innerHTML = `
-        <div class="text-center py-8">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-          <div class="text-gray-600">
-            <i class="fas fa-bolt text-orange-500 mr-2"></i>
-            Lambdaで製品を検索中...
-          </div>
+    function showProductRecommendation(product, totalCandidates) {
+      const chatArea = document.getElementById('chatArea');
+      const productDiv = document.createElement('div');
+      productDiv.className = 'flex items-start space-x-3';
+      productDiv.innerHTML = `
+        <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+          <i class="fas fa-robot text-white text-sm"></i>
         </div>
-      `;
-    }
-
-    function showResult(product, totalCandidates) {
-      document.getElementById('result').innerHTML = `
-        <div class="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-lg p-6 border border-emerald-200">
-          <div class="flex items-center mb-4">
-            <i class="fas fa-check-circle text-emerald-600 text-2xl mr-3"></i>
-            <div>
-              <h4 class="text-lg font-semibold text-gray-900">推薦製品が見つかりました！</h4>
-              <p class="text-sm text-gray-600">${totalCandidates}件の候補から最適製品を選定</p>
-            </div>
-          </div>
-          <div class="bg-white rounded-lg p-4 shadow-sm">
-            <div class="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4">
-              <img src="${product.img}" alt="${product.name}" class="w-full md:w-48 h-32 object-cover rounded-lg">
-              <div class="flex-1">
-                <h5 class="text-xl font-bold text-gray-900 mb-2">${product.name}</h5>
-                <p class="text-gray-600 mb-3">${product.description}</p>
-                <div class="space-y-2">
-                  <div class="flex items-center text-sm">
-                    <i class="fas fa-home text-blue-500 w-5"></i>
-                    <span class="text-gray-700">用途: ${product.usage}</span>
-                  </div>
-                  <div class="flex items-center text-sm">
-                    <i class="fas fa-cogs text-purple-500 w-5"></i>
-                    <span class="text-gray-700">機能: ${product.feature}</span>
-                  </div>
-                  <div class="flex items-center text-sm">
-                    <i class="fas fa-yen-sign text-green-500 w-5"></i>
-                    <span class="text-gray-700 font-semibold">価格: ${product.price.toLocaleString()} 円</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function showNoResult() {
-      document.getElementById('result').innerHTML = `
-        <div class="text-center py-8">
-          <i class="fas fa-search-minus text-4xl text-gray-300 mb-4"></i>
-          <div class="text-gray-600 mb-4">条件に合う製品が見つかりませんでした。</div>
-          <div class="text-sm text-gray-500">
-            予算を増やすか、機能要件を変更して再度お試しください。
-          </div>
-        </div>
-      `;
-    }
-
-    function showError(message) {
-      document.getElementById('result').innerHTML = `
-        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-          <div class="flex items-center">
-            <i class="fas fa-exclamation-triangle text-red-600 mr-3"></i>
-            <span class="text-red-700">${message}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    function displayProductList() {
-      const products = JSON.parse(localStorage.getItem('products'));
-      const productList = document.getElementById('productList');
-      
-      productList.innerHTML = products.map(product => `
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-          <img src="${product.img}" alt="${product.name}" class="w-full h-32 object-cover">
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-900 mb-2">${product.name}</h4>
-            <p class="text-xs text-gray-600 mb-3 line-clamp-2">${product.description}</p>
+        <div class="bg-white p-4 rounded-lg shadow-sm max-w-md border border-emerald-200">
+          <p class="text-emerald-600 font-semibold mb-3">✨ おすすめ製品が見つかりました！</p>
+          <div class="border rounded-lg p-3">
+            <img src="${product.img}" alt="${product.name}" class="w-full h-24 object-cover rounded mb-3">
+            <h4 class="font-bold text-gray-900">${product.name}</h4>
+            <p class="text-sm text-gray-600 mb-2">${product.description}</p>
             <div class="space-y-1 text-xs">
-              <div class="flex items-center">
-                <i class="fas fa-home text-blue-500 w-4"></i>
-                <span class="text-gray-600">${product.usage}</span>
-              </div>
-              <div class="flex items-center">
-                <i class="fas fa-cogs text-purple-500 w-4"></i>
-                <span class="text-gray-600">${product.feature}</span>
-              </div>
-              <div class="flex items-center font-semibold">
-                <i class="fas fa-yen-sign text-green-500 w-4"></i>
-                <span class="text-gray-900">${product.price.toLocaleString()}円</span>
-              </div>
+              <div>🏠 ${product.usage}</div>
+              <div>⚡ ${product.feature}</div>
+              <div class="font-semibold text-emerald-600">💰 ${product.price.toLocaleString()}円</div>
             </div>
           </div>
+          <p class="text-xs text-gray-500 mt-2">${totalCandidates}件の候補から最適な製品を選定しました</p>
         </div>
-      `).join('');
+      `;
+      chatArea.appendChild(productDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
     }
-    // 初期化
-    displayProductList();
+
+    // チャットボットのため、自動初期化は不要
   </script>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-gray-200 mt-16">
+  <footer class="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 dark:bg-white border-t border-blue-300 dark:border-gray-200 mt-16 shadow-xl">
     <div class="max-w-4xl mx-auto px-4 py-8">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
         <!-- Left Section -->
         <div class="flex items-center space-x-4">
-          <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
-            <i class="fas fa-search text-white text-sm"></i>
+          <div class="w-8 h-8 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-emerald-500 dark:to-emerald-600 rounded-lg flex items-center justify-center shadow-sm">
+            <i class="fas fa-search text-emerald-600 dark:text-white text-sm"></i>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 text-sm">製品選定アプリ</h3>
-            <p class="text-xs text-gray-500">AWS インターン成果発表 - 製品推薦デモ</p>
+            <h3 class="font-semibold text-white dark:text-gray-900 text-sm">製品選定アプリ</h3>
+            <p class="text-xs text-blue-100 dark:text-gray-500">AWS インターン成果発表 - 製品推薦デモ</p>
           </div>
         </div>
         

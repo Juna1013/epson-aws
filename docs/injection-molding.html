@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
   </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
+  <body class="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 dark:bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
-    <header class="bg-white zenn-border border-b">
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-600 dark:bg-white border-b shadow-lg dark:zenn-border">
       <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center justify-between flex-wrap gap-4">
           <div class="flex items-center space-x-3 md:space-x-4 min-w-0">
-            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-industry text-white text-sm md:text-lg"></i>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-cyan-500 dark:to-cyan-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+              <i class="fas fa-industry text-cyan-600 dark:text-white text-sm md:text-lg"></i>
             </div>
             <div class="min-w-0">
-              <h1 class="text-lg md:text-xl font-semibold text-gray-900 truncate">射出成型精度分析</h1>
-              <p class="text-xs md:text-sm text-gray-500 truncate">AWS インターン成果発表 - 異常検知デモ</p>
+              <h1 class="text-lg md:text-xl font-semibold text-white dark:text-gray-900 truncate">射出成型精度分析</h1>
+              <p class="text-xs md:text-sm text-blue-100 dark:text-gray-500 truncate">AWS インターン成果発表 - 異常検知デモ</p>
             </div>
           </div>
           <div class="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
@@ -29,7 +29,7 @@
               <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
               <i class="fas fa-moon text-blue-400 text-sm"></i>
             </div>
-            <span class="bg-cyan-100 text-cyan-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Demo</span>
+            <span class="bg-gradient-to-r from-white to-blue-50 dark:bg-cyan-100 text-cyan-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium shadow-sm">Demo</span>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <!-- システムフロー -->
         <div class="lg:col-span-2">
-          <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
             <div class="p-6">
               <h3 class="text-xl font-semibold text-gray-900 mb-6">システムフロー</h3>
               <div class="flex justify-center">
@@ -70,7 +70,7 @@
         </div>
 
         <!-- アラート -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">
               <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
@@ -83,7 +83,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <!-- 成型機センサー設定 -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-6">
               <i class="fas fa-sliders-h text-gray-600 mr-2"></i>
@@ -122,7 +122,7 @@
               </div>
 
               <div class="flex flex-wrap gap-3 pt-4">
-                <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center" id="sendOnce">
+                <button class="bg-gradient-to-r from-cyan-500 to-cyan-600 dark:bg-cyan-600 hover:from-cyan-600 hover:to-cyan-700 dark:hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-md flex items-center" id="sendOnce">
                   <i class="fas fa-paper-plane mr-2"></i>データを1回送信
                 </button>
                 <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center" id="startStream">
@@ -144,7 +144,7 @@
         </div>
 
         <!-- データ可視化 -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-6">
               <i class="fas fa-chart-line text-gray-600 mr-2"></i>
@@ -171,7 +171,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <!-- API Gateway ログ -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">
               <i class="fas fa-terminal text-gray-600 mr-2"></i>
@@ -190,7 +190,7 @@
         </div>
 
         <!-- S3 保存 -->
-        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 dark:bg-white rounded-xl shadow-xl dark:zenn-shadow border border-blue-100 dark:zenn-border overflow-hidden">
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">
               <i class="fas fa-database text-gray-600 mr-2"></i>
@@ -207,44 +207,44 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700 dark:bg-white border-t border-blue-300 dark:border-gray-200 mt-16 shadow-xl">
       <div class="max-w-4xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <!-- Left Section -->
           <div class="flex items-center space-x-4">
-            <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
-              <i class="fas fa-industry text-white text-sm"></i>
+            <div class="w-8 h-8 bg-gradient-to-r from-white to-blue-50 dark:bg-gradient-to-r dark:from-cyan-500 dark:to-cyan-600 rounded-lg flex items-center justify-center shadow-sm">
+              <i class="fas fa-industry text-cyan-600 dark:text-white text-sm"></i>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900 text-sm">射出成型精度分析</h3>
-              <p class="text-xs text-gray-500">AWS インターン成果発表 - 異常検知デモ</p>
+              <h3 class="font-semibold text-white dark:text-gray-900 text-sm">射出成型精度分析</h3>
+              <p class="text-xs text-blue-100 dark:text-gray-500">AWS インターン成果発表 - 異常検知デモ</p>
             </div>
           </div>
           
           <!-- Right Section -->
           <div class="text-right">
-            <p class="text-sm text-gray-600 mb-1">🏭 射出成型異常検知デモ</p>
-            <p class="text-xs text-gray-500">Lambda & S3 連携による品質管理システム</p>
+            <p class="text-sm text-white dark:text-gray-600 mb-1">🏭 射出成型異常検知デモ</p>
+            <p class="text-xs text-blue-100 dark:text-gray-500">Lambda & S3 連携による品質管理システム</p>
           </div>
         </div>
         
         <!-- Bottom Section -->
-        <div class="mt-6 pt-4 border-t border-gray-100">
-          <p class="text-sm text-gray-600 leading-relaxed">
+        <div class="mt-6 pt-4 border-t border-blue-400 dark:border-gray-100">
+          <p class="text-sm text-white dark:text-gray-600 leading-relaxed">
             <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
             <strong>ヒント:</strong> 温度・圧力・成形時間の目標を変えて『連続送信』を開始すると、擬似的なノイズやドリフトが入り、Lambda（ブラウザ内）による異常検知が働きます。保存は localStorage を使っているためブラウザを閉じても残ります。
           </p>
         </div>
         
-        <div class="mt-4 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-          <p class="text-xs text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
-          <div class="flex items-center space-x-4 text-xs text-gray-400">
+        <div class="mt-4 pt-4 border-t border-blue-400 dark:border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <p class="text-xs text-blue-200 dark:text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
+          <div class="flex items-center space-x-4 text-xs text-blue-200 dark:text-gray-400">
             <span class="flex items-center">
               <i class="fas fa-code mr-1"></i>
               Built with AWS
             </span>
             <span class="flex items-center">
-              <i class="fas fa-heart mr-1 text-red-400"></i>
+              <i class="fas fa-heart mr-1 text-pink-300 dark:text-red-400"></i>
               Made with care
             </span>
           </div>
