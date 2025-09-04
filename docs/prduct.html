@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>製品選定アプリ デモ</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .card { border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin: 10px 0; }
+    label { display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 5px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 8px 12px; cursor: pointer; }
+    #result { margin-top: 20px; padding: 10px; background: #f9f9f9; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>製品選定アプリ デモ</h1>
+  <p>顧客条件を入力すると、最適な製品を提案します。</p>
+
+  <div class="card">
+    <h2>入力条件</h2>
+    <label>使用条件:
+      <select id="usage">
+        <option value="家庭用">家庭用</option>
+        <option value="業務用">業務用</option>
+      </select>
+    </label>
+
+    <label>予算 (円):
+      <input type="number" id="budget" placeholder="例: 50000">
+    </label>
+
+    <label>機能要件:
+      <select id="feature">
+        <option value="基本">基本</option>
+        <option value="高性能">高性能</option>
+      </select>
+    </label>
+
+    <button onclick="searchProduct()">最適製品を検索</button>
+  </div>
+
+  <div class="card">
+    <h2>提案結果</h2>
+    <div id="result">ここに結果が表示されます</div>
+  </div>
+
+  <script>
+    // 擬似S3データ (localStorageに保存 or 初期化)
+    const defaultProducts = [
+      { name: "EcoClean 100", usage: "家庭用", price: 30000, feature: "基本", img: "https://via.placeholder.com/120?text=EcoClean+100" },
+      { name: "ProClean 500", usage: "業務用", price: 80000, feature: "高性能", img: "https://via.placeholder.com/120?text=ProClean+500" },
+      { name: "SmartWash X", usage: "家庭用", price: 60000, feature: "高性能", img: "https://via.placeholder.com/120?text=SmartWash+X" },
+      { name: "UltraWash Z", usage: "業務用", price: 120000, feature: "高性能", img: "https://via.placeholder.com/120?text=UltraWash+Z" }
+    ];
+
+    if (!localStorage.getItem('products')) {
+      localStorage.setItem('products', JSON.stringify(defaultProducts));
+    }
+
+    function searchProduct() {
+      const usage = document.getElementById('usage').value;
+      const budget = parseInt(document.getElementById('budget').value, 10);
+      const feature = document.getElementById('feature').value;
+
+      const products = JSON.parse(localStorage.getItem('products'));
+
+      // Lambda処理 (フィルタリング + 最適候補選定)
+      const candidates = products.filter(p => p.usage === usage && p.feature === feature && p.price <= budget);
+
+      let resultHtml = "";
+      if (candidates.length > 0) {
+        const best = candidates.sort((a,b) => a.price - b.price)[0];
+        resultHtml = `
+          <h3>${best.name}</h3>
+          <img src="${best.img}" alt="${best.name}"><br>
+          用途: ${best.usage}<br>
+          機能: ${best.feature}<br>
+          価格: ${best.price.toLocaleString()} 円
+        `;
+      } else {
+        resultHtml = "条件に合う製品が見つかりませんでした。";
+      }
+
+      document.getElementById('result').innerHTML = resultHtml;
+    }
+  </script>
+</body>
+</html>

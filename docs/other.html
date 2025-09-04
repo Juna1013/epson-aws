@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>外部連携システム デモ</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .card { border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin: 10px 0; }
+    textarea { width: 100%; height: 80px; margin-top: 5px; }
+    button { margin: 5px 0; padding: 5px 10px; cursor: pointer; }
+    #log { max-height: 200px; overflow-y: auto; background: #f9f9f9; padding: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>外部連携システム デモ</h1>
+  <p>パートナー企業との安全なデータ共有とリアルタイム連携をシミュレーションします。</p>
+
+  <div class="card">
+    <h2>Client: データ送信</h2>
+    <textarea id="inputData" placeholder="送信するデータを入力してください (例: 在庫情報: 100台)"></textarea>
+    <button onclick="sendData()">データ送信</button>
+  </div>
+
+  <div class="card">
+    <h2>Partner: データ受信</h2>
+    <textarea id="receivedData" readonly placeholder="ここに受信データが表示されます"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>履歴 (S3: localStorage)</h2>
+    <div id="log"></div>
+  </div>
+
+  <script>
+    function logMessage(msg) {
+      const log = document.getElementById('log');
+      log.innerHTML += `<div>• ${msg}</div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function sendData() {
+      const raw = document.getElementById('inputData').value.trim();
+      if (!raw) {
+        alert('データを入力してください');
+        return;
+      }
+
+      logMessage(`Client → API Gateway: データ送信開始`);
+
+      // API Gateway (ルーティング)
+      setTimeout(() => {
+        logMessage(`API Gateway → Lambda: データ転送`);
+        lambdaProcess(raw);
+      }, 500);
+    }
+
+    function lambdaProcess(data) {
+      // 擬似暗号化 (Base64)
+      const encrypted = btoa(unescape(encodeURIComponent(data)));
+      // 簡易整合性チェック (長さ)
+      const valid = data.length > 0;
+
+      logMessage(`Lambda: データ処理完了 (暗号化 + チェック)`);
+
+      if (valid) {
+        // S3に保存 (localStorage)
+        const record = { time: new Date().toLocaleString(), data: encrypted };
+        const history = JSON.parse(localStorage.getItem('partnerData') || '[]');
+        history.push(record);
+        localStorage.setItem('partnerData', JSON.stringify(history));
+
+        logMessage(`Lambda → S3: 保存完了`);
+
+        // Partner受信 (復号化)
+        const decrypted = decodeURIComponent(escape(atob(encrypted)));
+        document.getElementById('receivedData').value = decrypted;
+        logMessage(`S3 → Partner: データ受信完了`);
+        refreshHistory();
+      } else {
+        logMessage(`Lambda: データ異常あり`);
+      }
+    }
+
+    function refreshHistory() {
+      const history = JSON.parse(localStorage.getItem('partnerData') || '[]');
+      const log = document.getElementById('log');
+      log.innerHTML = '';
+      history.forEach(r => {
+        log.innerHTML += `<div>[${r.time}] 保存済みデータ: ${r.data}</div>`;
+      });
+    }
+
+    // ページロード時に履歴表示
+    refreshHistory();
+  </script>
+</body>
+</html>

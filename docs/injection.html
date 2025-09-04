@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>射出成型精度分析 - クライアントのみデモ</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--danger:#fb7185}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,#071129 0%, #081327 60%);color:#e6eef6;padding:20px}
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .small{font-size:13px;color:var(--muted)}
+    .controls{display:flex;flex-direction:column;gap:8px}
+    label{font-size:13px;color:var(--muted)}
+    input[type=range]{width:100%}
+    .btn{background:var(--accent);color:#021526;padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    .diagram{display:flex;gap:8px;align-items:center;justify-content:space-between}
+    .box{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;text-align:center;flex:1}
+    .arrow{width:28px;text-align:center}
+    #chart{height:240px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:8px;padding:8px}
+    .legend{display:flex;gap:8px;align-items:center;margin-top:6px}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .dot.temp{background:#ffb86b}
+    .dot.press{background:#7ee787}
+    .dot.time{background:#93c5fd}
+    .log{height:200px;overflow:auto;background:rgba(0,0,0,0.15);padding:8px;border-radius:6px;font-family:monospace;font-size:13px}
+    .alert{padding:8px;border-radius:6px;margin-bottom:6px}
+    .alert.warn{background:rgba(251,193,64,0.12);color:#ffd8a8}
+    .alert.crit{background:rgba(251,113,133,0.12);color:#ffd6dd}
+    footer{margin-top:12px;font-size:13px;color:var(--muted)}
+    .flex{display:flex;gap:8px;align-items:center}
+    .pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021526">EP</div>
+      <div>
+        <h1>射出成型精度分析 — クライアントのみデモ</h1>
+        <p class="lead">成型条件（温度・圧力・成形時間）をクライアント側でシミュレートし、API Gateway→Lambda(異常検知)→S3(保存) の流れを擬似化します。サーバーは一切不要。</p>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div>
+        <div class="card">
+          <h3>システムフロー</h3>
+          <div class="diagram" style="margin-top:10px">
+            <div class="box">Client<br><small class="small">センサーデータ送信</small></div>
+            <div class="arrow">→</div>
+            <div class="box">API Gateway<br><small class="small">ルーティング</small></div>
+            <div class="arrow">→</div>
+            <div class="box">Lambda<br><small class="small">異常検知・アラート</small></div>
+            <div class="arrow">→</div>
+            <div class="box">S3<br><small class="small">長期保存 (localStorage)</small></div>
+          </div>
+          <p class="small" style="margin-top:10px">※ このデモでは Lambda と S3 の挙動をブラウザ内で模倣しています。</p>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>成型機センサー設定</h3>
+          <div class="controls" id="settings">
+            <div>
+              <label>目標温度 (°C): <span id="setTempVal">220</span></label>
+              <input id="setTemp" type="range" min="150" max="260" value="220">
+            </div>
+            <div>
+              <label>目標圧力 (MPa): <span id="setPressVal">80</span></label>
+              <input id="setPress" type="range" min="40" max="120" value="80">
+            </div>
+            <div>
+              <label>目標成形時間 (ms): <span id="setTimeVal">300</span></label>
+              <input id="setTime" type="range" min="150" max="800" value="300">
+            </div>
+
+            <div class="flex" style="margin-top:8px">
+              <button class="btn" id="sendOnce">データを1回送信</button>
+              <button class="btn-ghost" id="startStream">連続送信: 停止</button>
+              <button class="btn-ghost" id="clearStorage">S3(保存)をクリア</button>
+            </div>
+
+            <div style="margin-top:8px" class="small">送信はクライアント上でAPI Gatewayを経由してLambda(異常検知)へルーティングされ、正常ならS3に保存されます。閾値超過でアラート表示。</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>データ可視化</h3>
+          <div id="chart"></div>
+          <div class="legend">
+            <div class="flex"><div class="dot temp"></div><div class="small">温度 (°C)</div></div>
+            <div class="flex"><div class="dot press"></div><div class="small">圧力 (MPa)</div></div>
+            <div class="flex"><div class="dot time"></div><div class="small">成形時間 (ms)</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>アラート</h3>
+          <div id="alerts"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>API Gateway ログ</h3>
+          <div class="log" id="log"></div>
+          <div style="margin-top:8px" class="flex">
+            <button class="btn-ghost" id="exportJson">S3をJSONでエクスポート</button>
+            <button class="btn-ghost" id="downloadJson">ダウンロード (.json)</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>保存 (S3 模擬)</h3>
+          <div class="small">保存件数: <span id="s3count">0</span></div>
+          <div style="margin-top:8px" class="log" id="s3view"></div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div class="small">ヒント: 温度・圧力・成形時間の目標を変えて『連続送信』を開始すると、擬似的なノイズやドリフトが入り、Lambda（ブラウザ内）による異常検知が働きます。保存は localStorage を使っているためブラウザを閉じても残ります。</div>
+    </footer>
+  </div>
+
+<script>
+// --- ユーティリティ & 初期設定 ---
+const setTemp = document.getElementById('setTemp');
+const setPress = document.getElementById('setPress');
+const setTime = document.getElementById('setTime');
+const setTempVal = document.getElementById('setTempVal');
+const setPressVal = document.getElementById('setPressVal');
+const setTimeVal = document.getElementById('setTimeVal');
+const sendOnce = document.getElementById('sendOnce');
+const startStream = document.getElementById('startStream');
+const clearStorage = document.getElementById('clearStorage');
+const logEl = document.getElementById('log');
+const alertsEl = document.getElementById('alerts');
+const s3view = document.getElementById('s3view');
+const s3count = document.getElementById('s3count');
+const exportJson = document.getElementById('exportJson');
+const downloadJson = document.getElementById('downloadJson');
+
+let streaming = false;
+let streamTimer = null;
+
+// localStorage key for simulated S3
+const S3_KEY = 'sim_s3_injection_molding';
+
+// update UI values
+function updateSetUI(){ setTempVal.textContent = setTemp.value; setPressVal.textContent = setPress.value; setTimeVal.textContent = setTime.value; }
+[setTemp,setPress,setTime].forEach(el=>el.addEventListener('input',updateSetUI));
+updateSetUI();
+
+// --- シンプルなチャート(軽量) ---
+const chartEl = document.getElementById('chart');
+let samples = []; // 最新データ配列
+
+function drawChart(){
+  chartEl.innerHTML = '';
+  const w = chartEl.clientWidth || 700;
+  const h = 240;
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS,'svg');
+  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', h);
+
+  // background grid
+  for(let i=0;i<5;i++){
+    const y = (h/4)*i;
+    const line = document.createElementNS(svgNS,'line');
+    line.setAttribute('x1',0); line.setAttribute('x2',w); line.setAttribute('y1',y); line.setAttribute('y2',y);
+    line.setAttribute('stroke','rgba(255,255,255,0.03)'); line.setAttribute('stroke-width',1);
+    svg.appendChild(line);
+  }
+  // draw series: temp, press, time
+  if(samples.length>0){
+    const pad = 20; const plotW = w-2*pad; const plotH = h-2*pad;
+    const N = Math.max(1,samples.length-1);
+
+    // helpers
+    const getX = (i)=> pad + (i/N)*plotW;
+    const tempVals = samples.map(s=>s.temp);
+    const pressVals = samples.map(s=>s.press);
+    const timeVals = samples.map(s=>s.mtime);
+    const minAll = Math.min(...tempVals, ...pressVals, ...timeVals);
+    const maxAll = Math.max(...tempVals, ...pressVals, ...timeVals);
+    const range = Math.max(1, maxAll - minAll);
+    const getY = (v)=> pad + plotH - ((v - minAll)/range)*plotH;
+
+    function drawPath(vals,cls){
+      const path = document.createElementNS(svgNS,'path');
+      let d = '';
+      vals.forEach((v,i)=>{ const x=getX(i); const y=getY(v); d += (i===0?`M ${x},${y}`:` L ${x},${y}`); });
+      path.setAttribute('d',d); path.setAttribute('fill','none'); path.setAttribute('stroke-width',2);
+      if(cls==='temp') path.setAttribute('stroke','#ffb86b');
+      if(cls==='press') path.setAttribute('stroke','#7ee787');
+      if(cls==='time') path.setAttribute('stroke','#93c5fd');
+      svg.appendChild(path);
+    }
+    drawPath(tempVals,'temp'); drawPath(pressVals,'press'); drawPath(timeVals,'time');
+
+    // draw latest dots
+    const last = samples[samples.length-1];
+    [['temp','#ffb86b',last.temp],['press','#7ee787',last.press],['time','#93c5fd',last.mtime]].forEach(([k,color,v],i)=>{
+      const cx = getX(samples.length-1); const cy = getY(v);
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',4); c.setAttribute('fill',color);
+      svg.appendChild(c);
+    });
+  }
+  chartEl.appendChild(svg);
+}
+
+// --- 疑似センサーデータ生成 ---
+function generateSample(){
+  // 基本は目標値にノイズとトレンドを混ぜる
+  const goalTemp = Number(setTemp.value);
+  const goalPress = Number(setPress.value);
+  const goalTime = Number(setTime.value);
+
+  // ノイズと時系列要素
+  const t = Date.now();
+  const drift = Math.sin(t/50000)*3; // ゆっくりドリフト
+  const noiseTemp = (Math.random()-0.5)*6; // ±3
+  const noisePress = (Math.random()-0.5)*6;
+  const noiseTime = (Math.random()-0.5)*40;
+
+  const temp = Math.round((goalTemp + drift + noiseTemp)*10)/10;
+  const press = Math.round((goalPress + drift*0.2 + noisePress)*10)/10;
+  const mtime = Math.round((goalTime + noiseTime));
+
+  return { ts: new Date().toISOString(), temp, press, mtime };
+}
+
+// --- API Gateway (模擬) ---
+function apiGateway_receive(sample){
+  log(`API Gateway: 受信 ts=${sample.ts} temp=${sample.temp} press=${sample.press} time=${sample.mtime}`);
+  // ルーティング: 解析用と保存用に送る
+  const analysisRes = lambda_analyze(sample);
+  if(analysisRes.store) {
+    s3_put(sample);
+    log('API Gateway: S3へ保存完了');
+  } else {
+    log('API Gateway: 保存をスキップ (重大アラートやフィルタ条件)');
+  }
+}
+
+// --- Lambda (異常検知) ---
+// シンプルな閾値 + 局所平均とのzスコアによる検出
+function lambda_analyze(sample){
+  // ローカルの直近ウィンドウから平均/分散を取る
+  const window = samples.slice(-20);
+  const temps = window.map(s=>s.temp);
+  const presses = window.map(s=>s.press);
+  const times = window.map(s=>s.mtime);
+
+  function mean(arr){ if(arr.length==0) return null; return arr.reduce((a,b)=>a+b,0)/arr.length }
+  function stdev(arr){ const m=mean(arr); if(m===null) return null; return Math.sqrt(arr.reduce((s,x)=>s+(x-m)*(x-m),0)/arr.length) }
+
+  const anomalies = [];
+  // 絶対閾値
+  if(sample.temp < 160 || sample.temp > 250) anomalies.push({level:'crit',msg:`温度異常: ${sample.temp}°C`});
+  if(sample.press < 50 || sample.press > 110) anomalies.push({level:'warn',msg:`圧力異常: ${sample.press} MPa`});
+  if(sample.mtime < 160 || sample.mtime > 700) anomalies.push({level:'warn',msg:`成形時間異常: ${sample.mtime} ms`});
+
+  // zスコアでの異常 (局所ウィンドウと比較)
+  const mT = mean(temps); const sT = stdev(temps);
+  if(mT!==null && sT>0){ const z = Math.abs((sample.temp - mT)/sT); if(z>3) anomalies.push({level:'crit',msg:`温度急変 (z=${z.toFixed(1)})`}); }
+
+  const mP = mean(presses); const sP = stdev(presses);
+  if(mP!==null && sP>0){ const z = Math.abs((sample.press - mP)/sP); if(z>3) anomalies.push({level:'crit',msg:`圧力急変 (z=${z.toFixed(1)})`}); }
+
+  // アラート出力
+  if(anomalies.length>0){
+    anomalies.forEach(a=>pushAlert(a.level,a.msg,sample));
+    return { store: true, anomalies };
+  }
+  // 正常
+  return { store: true, anomalies: [] };
+}
+
+// --- S3 (localStorageを利用) ---
+function s3_put(sample){
+  const arr = JSON.parse(localStorage.getItem(S3_KEY) || '[]');
+  arr.push(sample);
+  localStorage.setItem(S3_KEY, JSON.stringify(arr));
+  renderS3();
+}
+
+function s3_list(){ return JSON.parse(localStorage.getItem(S3_KEY) || '[]'); }
+
+function s3_clear(){ localStorage.removeItem(S3_KEY); renderS3(); }
+
+function renderS3(){ const arr = s3_list(); s3count.textContent = arr.length; s3view.textContent = arr.slice(-20).map(j=>JSON.stringify(j)).reverse().join('\n'); }
+
+// --- ログ/アラート管理 ---
+function log(msg){ const now = new Date().toLocaleTimeString(); logEl.textContent = `[${now}] ${msg}\n` + logEl.textContent; }
+
+function pushAlert(level,msg,sample){
+  const el = document.createElement('div'); el.className = 'alert ' + (level==='crit'?'crit':'warn');
+  el.textContent = `${new Date().toLocaleTimeString()} — ${msg}`;
+  alertsEl.prepend(el);
+  // 重要な場合はS3へも直接記録 (イベント保存)
+  const events = JSON.parse(localStorage.getItem(S3_KEY + '_events') || '[]');
+  events.push({ts: new Date().toISOString(), level, msg, sample});
+  localStorage.setItem(S3_KEY + '_events', JSON.stringify(events));
+}
+
+// --- UI ハンドラ ---
+sendOnce.addEventListener('click',()=>{ const s = generateSample(); samples.push(s); if(samples.length>200) samples.shift(); drawChart(); apiGateway_receive(s); renderS3(); });
+
+startStream.addEventListener('click',()=>{
+  streaming = !streaming; startStream.textContent = streaming? '連続送信: 開始中' : '連続送信: 停止';
+  if(streaming){ streamTimer = setInterval(()=>{ const s = generateSample(); samples.push(s); if(samples.length>200) samples.shift(); drawChart(); apiGateway_receive(s); }, 900); }
+  else { clearInterval(streamTimer); }
+});
+
+clearStorage.addEventListener('click',()=>{ if(confirm('S3模擬保存をクリアします。よろしいですか？')){ s3_clear(); localStorage.removeItem(S3_KEY + '_events'); log('S3をクリアしました'); }});
+
+exportJson.addEventListener('click',()=>{ const data = { saved: s3_list(), events: JSON.parse(localStorage.getItem(S3_KEY + '_events')||'[]') }; const str = JSON.stringify(data, null, 2); alert('S3の内容をJSON文字列としてコンソールに出力します。ダウンロードは下のボタンを使用してください。'); console.log(str); });
+
+downloadJson.addEventListener('click',()=>{ const data = { saved: s3_list(), events: JSON.parse(localStorage.getItem(S3_KEY + '_events')||'[]') }; const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'sim_s3_injection_molding.json'; a.click(); URL.revokeObjectURL(url); });
+
+// 初回描画・ロード
+(function init(){
+  // 直近にランダムサンプルを作って表示
+  for(let i=0;i<30;i++){ const s = generateSample(); s.ts = new Date(Date.now() - (30-i)*60000).toISOString(); samples.push(s); }
+  drawChart(); renderS3(); log('デモを初期化しました');
+})();
+
+</script>
+</body>
+</html>

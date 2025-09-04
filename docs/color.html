@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>印刷機色分析 - クライアントのみデモ</title>
+  <style>
+    :root{--bg:#111827;--card:#1f2937;--accent:#f59e0b;--muted:#9ca3af;--crit:#ef4444}
+    body{background:var(--bg);color:#f3f4f6;font-family:system-ui, sans-serif;margin:0;padding:20px}
+    h1{margin:0;font-size:20px}
+    p.lead{color:var(--muted);margin:4px 0 20px}
+    .container{max-width:1100px;margin:auto}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.5);margin-bottom:16px}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    .swatch{width:40px;height:40px;border-radius:6px;border:1px solid rgba(255,255,255,0.2)}
+    label{font-size:13px;color:var(--muted)}
+    input[type=color]{width:60px;height:36px;border:none;cursor:pointer;background:none}
+    .btn{background:var(--accent);color:#000;padding:6px 12px;border-radius:8px;cursor:pointer;border:none}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.2);padding:6px 12px;border-radius:8px;cursor:pointer}
+    .log{height:180px;overflow:auto;background:rgba(0,0,0,0.3);padding:6px;border-radius:6px;font-family:monospace;font-size:13px;white-space:pre-wrap}
+    .alert{padding:8px;border-radius:6px;margin-top:6px}
+    .alert.ok{background:rgba(16,185,129,0.2);color:#6ee7b7}
+    .alert.warn{background:rgba(245,158,11,0.2);color:#fcd34d}
+    .alert.crit{background:rgba(239,68,68,0.2);color:#fecaca}
+    .flex{display:flex;align-items:center;gap:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>印刷機色分析 — クライアントのみデモ</h1>
+    <p class="lead">印刷物の色をサンプリングし、Lambda(色差分析)で基準との差を評価、S3(localStorage)に履歴を保存します。</p>
+
+    <div class="card">
+      <h3>システム構成</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <div class="flex"><div class="swatch" style="background:#60a5fa"></div>Client<br><small>色彩データ収集</small></div>
+        <div>→</div>
+        <div class="flex"><div class="swatch" style="background:#f59e0b"></div>Lambda<br><small>色差分析・判定</small></div>
+        <div>→</div>
+        <div class="flex"><div class="swatch" style="background:#10b981"></div>S3<br><small>履歴保存</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>基準色とサンプル色</h3>
+      <div class="controls">
+        <div>
+          <label>基準色</label><br>
+          <input type="color" id="refColor" value="#ff0000">
+        </div>
+        <div>
+          <label>サンプル色</label><br>
+          <input type="color" id="sampleColor" value="#ee4444">
+        </div>
+        <div style="align-self:end">
+          <button class="btn" id="analyzeBtn">分析する</button>
+          <button class="btn-ghost" id="clearBtn">S3クリア</button>
+        </div>
+      </div>
+      <div id="alertBox"></div>
+    </div>
+
+    <div class="card">
+      <h3>ログ (API Gateway 模擬)</h3>
+      <div class="log" id="log"></div>
+    </div>
+
+    <div class="card">
+      <h3>S3 保存履歴</h3>
+      <div class="log" id="s3view"></div>
+    </div>
+  </div>
+
+<script>
+const refColor = document.getElementById('refColor');
+const sampleColor = document.getElementById('sampleColor');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const clearBtn = document.getElementById('clearBtn');
+const logEl = document.getElementById('log');
+const s3view = document.getElementById('s3view');
+const alertBox = document.getElementById('alertBox');
+
+const S3_KEY = 'sim_s3_print_color';
+
+function log(msg){ const now=new Date().toLocaleTimeString(); logEl.textContent=`[${now}] ${msg}\n`+logEl.textContent }
+
+function hexToRgb(hex){
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return m? {r:parseInt(m[1],16), g:parseInt(m[2],16), b:parseInt(m[3],16)}:null;
+}
+
+function deltaE(rgb1,rgb2){
+  // 簡易ユークリッド色差
+  return Math.sqrt((rgb1.r-rgb2.r)**2+(rgb1.g-rgb2.g)**2+(rgb1.b-rgb2.b)**2);
+}
+
+function lambda_analyze(refHex,sampleHex){
+  const r1=hexToRgb(refHex); const r2=hexToRgb(sampleHex);
+  const d=deltaE(r1,r2);
+  let level,msg;
+  if(d<15){level='ok';msg=`色差 ΔE=${d.toFixed(1)} (良好)`}
+  else if(d<35){level='warn';msg=`色差 ΔE=${d.toFixed(1)} (注意)`}
+  else{level='crit';msg=`色差 ΔE=${d.toFixed(1)} (不良)`}
+  return {level,msg,delta:d};
+}
+
+function s3_put(data){
+  const arr=JSON.parse(localStorage.getItem(S3_KEY)||'[]');
+  arr.push(data);
+  localStorage.setItem(S3_KEY,JSON.stringify(arr));
+  renderS3();
+}
+
+function s3_list(){ return JSON.parse(localStorage.getItem(S3_KEY)||'[]'); }
+
+function s3_clear(){ localStorage.removeItem(S3_KEY); renderS3(); }
+
+function renderS3(){ const arr=s3_list(); s3view.textContent=arr.slice(-20).map(x=>JSON.stringify(x)).reverse().join('\n'); }
+
+function showAlert(level,msg){
+  alertBox.innerHTML=`<div class="alert ${level}">${msg}</div>`;
+}
+
+analyzeBtn.addEventListener('click',()=>{
+  const ref=refColor.value; const sample=sampleColor.value;
+  log(`API Gateway: 色データ受信 ref=${ref} sample=${sample}`);
+  const res=lambda_analyze(ref,sample);
+  showAlert(res.level,res.msg);
+  s3_put({ts:new Date().toISOString(),ref,sample,delta:res.delta,level:res.level});
+  log(`Lambda: 判定結果 ${res.msg}`);
+  log(`S3: 履歴保存完了`);
+});
+
+clearBtn.addEventListener('click',()=>{ if(confirm('S3履歴を消去しますか?')){ s3_clear(); log('S3をクリアしました'); }});
+
+// 初期表示
+renderS3();
+</script>
+</body>
+</html>
