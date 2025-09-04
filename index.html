@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AWS サービス比較 - ChatGPT風UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      .chat-card {
+        transition: all 0.3s ease;
+        border: 1px solid #e5e7eb;
+      }
+      .chat-card:hover {
+        border-color: #10b981;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-inter">
+    <header class="gradient-bg text-white">
+      <div class="container mx-auto px-6 py-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <i class="fas fa-cloud text-xl"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold">AWS Assistant</h1>
+              <p class="text-white text-opacity-80 text-sm">インテリジェントなクラウドサービスガイド</p>
+            </div>
+          </div>
+          <div class="hidden md:flex items-center space-x-4">
+            <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">v2.0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+      <div class="bg-white rounded-2xl shadow-sm border p-6 mb-8">
+        <div class="flex items-start space-x-4">
+          <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-robot text-green-600 text-sm"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-semibold text-gray-900 mb-2">こんにちは！AWS Assistantです</h2>
+            <p class="text-gray-600 leading-relaxed">
+              Amazon Web Servicesの主要サービスについて詳しく説明し、実際のAPI呼び出しテストも体験できます。
+              どのサービスについて知りたいですか？
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <a href="s3.html" class="chat-card bg-white rounded-2xl p-6 block group">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-orange-200 transition-colors">
+              <i class="fas fa-database text-orange-600 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">Amazon S3</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                スケーラブルなオブジェクトストレージサービス。静的サイトホスティングやデータアーカイブに最適です。
+              </p>
+              <div class="flex items-center mt-3 text-green-600 text-sm">
+                <span>詳細を見る</span>
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="lambda.html" class="chat-card bg-white rounded-2xl p-6 block group">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-purple-200 transition-colors">
+              <i class="fas fa-bolt text-purple-600 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">AWS Lambda</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                サーバーレス実行環境。イベント駆動型アプリケーションの構築が可能です。
+              </p>
+              <div class="flex items-center mt-3 text-green-600 text-sm">
+                <span>API テストを試す</span>
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="apigateway.html" class="chat-card bg-white rounded-2xl p-6 block group">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
+              <i class="fas fa-network-wired text-blue-600 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">API Gateway</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                RESTful APIやWebSocket APIを簡単に構築・管理できるサービスです。
+              </p>
+              <div class="flex items-center mt-3 text-green-600 text-sm">
+                <span>実際に試してみる</span>
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="chat.html" class="chat-card bg-white rounded-2xl p-6 block group">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
+              <i class="fas fa-comments text-green-600 text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-2">チャットボット</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                AWSサービスに関する質問にインテリジェントに回答します。
+              </p>
+              <div class="flex items-center mt-3 text-green-600 text-sm">
+                <span>質問してみる</span>
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>API Gateway テスト - AWS Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div class="max-w-6xl mx-auto px-4 py-3">
+        <div class="flex items-center space-x-3">
+          <a href="index.html" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-network-wired text-blue-600 text-sm"></i>
+          </div>
+          <div>
+            <h1 class="font-semibold text-gray-900">API Gateway</h1>
+            <p class="text-xs text-gray-500">RESTful API管理サービス</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <i class="fas fa-play text-blue-600"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-gray-900">API Gateway 実行テスト</h2>
+            <p class="text-gray-600 text-sm">実際のAPIエンドポイントにリクエストを送信してみましょう</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-4 mb-6">
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">GET</span>
+            <code class="text-sm text-gray-700 bg-white px-2 py-1 rounded border">
+              https://71w6asdmw3.execute-api.ap-northeast-1.amazonaws.com/Prod/
+            </code>
+          </div>
+          <p class="text-xs text-gray-500">このエンドポイントはLambda関数に接続されています</p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 mb-6">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1">
+              <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">名前を入力</label>
+              <input
+                type="text"
+                id="nameInput"
+                placeholder="例: 太郎"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div class="flex items-end">
+              <button
+                onclick="callApi()"
+                id="submitBtn"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2 w-full sm:w-auto"
+              >
+                <i class="fas fa-paper-plane"></i>
+                <span>API実行</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="responseSection" class="hidden">
+          <h3 class="font-medium text-gray-900 mb-3">APIレスポンス</h3>
+          <div id="responseBox" class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div class="flex items-start space-x-3">
+              <div id="statusIcon" class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xs"></i>
+              </div>
+              <div class="flex-1">
+                <p id="response" class="text-green-800 font-medium"></p>
+                <div class="mt-3 text-xs text-green-600">
+                  <p>Status: <span id="statusText" class="font-mono bg-green-100 px-1 rounded">200 OK</span></p>
+                  <p>Response Time: <span id="responseTime" class="font-mono bg-green-100 px-1 rounded">-</span>ms</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">Amazon API Gatewayとは</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-gray-600 leading-relaxed mb-4">
+              Amazon API Gateway は、あらゆる規模でのAPIの作成、公開、保守、監視、保護を行うフルマネージドサービスです。
+              RESTful API と WebSocket API の両方をサポートし、バックエンドサービスへの「玄関口」として機能します。
+            </p>
+            <ul class="space-y-2 text-gray-600">
+              <li class="flex items-center space-x-2">
+                <i class="fas fa-shield-alt text-blue-600 text-sm"></i>
+                <span>セキュリティとアクセス制御</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fas fa-tachometer-alt text-blue-600 text-sm"></i>
+                <span>スロットリングとレート制限</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fas fa-chart-line text-blue-600 text-sm"></i>
+                <span>リアルタイム監視</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fas fa-memory text-blue-600 text-sm"></i>
+                <span>レスポンスキャッシュ</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-6">
+            <h3 class="font-medium text-gray-900 mb-4">サポートする統合</h3>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-bolt text-purple-600"></i>
+                <span class="text-sm">AWS Lambda</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-server text-orange-600"></i>
+                <span class="text-sm">Amazon EC2</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-balance-scale text-green-600"></i>
+                <span class="text-sm">Elastic Load Balancing</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-cloud text-blue-600"></i>
+                <span class="text-sm">その他のAWSサービス</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-globe text-gray-600"></i>
+                <span class="text-sm">パブリックHTTPエンドポイント</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-key text-blue-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">認証・認可</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            AWS Cognito、Lambda Authorizer、IAMによる包括的な認証・認可機能
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-stopwatch text-green-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">スロットリング</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            APIの呼び出し頻度を制限し、バックエンドシステムを保護
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-memory text-purple-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">キャッシュ</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            レスポンスをキャッシュしてパフォーマンスを向上、コストを削減
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-code text-orange-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">SDKの自動生成</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            様々なプラットフォーム向けのクライアントSDKを自動生成
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-chart-line text-red-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">監視・ログ</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            CloudWatchとの連携による詳細な監視とログ記録
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border hover:shadow-lg transition-shadow">
+          <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+            <i class="fas fa-arrows-alt text-indigo-600"></i>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">CORS対応</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            Cross-Origin Resource Sharingの自動設定でWebアプリケーション対応
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">料金体系</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-medium text-gray-900 mb-4">REST API</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-600">APIコール</span>
+                <span class="font-medium">$3.50 / 100万回</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-600">キャッシュ</span>
+                <span class="font-medium">$0.02 / 時間 (0.5GB)</span>
+              </div>
+              <div class="flex items-center justify-between py-2">
+                <span class="text-gray-600">無料枠</span>
+                <span class="font-medium text-green-600">100万コール/月</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 mb-4">WebSocket API</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-600">接続時間</span>
+                <span class="font-medium">$0.25 / 100万分</span>
+              </div>
+              <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <span class="text-gray-600">メッセージ</span>
+                <span class="font-medium">$1.00 / 100万件</span>
+              </div>
+              <div class="flex items-center justify-between py-2">
+                <span class="text-gray-600">無料枠</span>
+                <span class="font-medium text-green-600">100万件/月</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border p-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">API Gatewayアーキテクチャ</h2>
+        <div class="bg-gray-50 rounded-xl p-8">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-8">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-mobile-alt text-blue-600 text-2xl"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-900">クライアント</div>
+              <div class="text-xs text-gray-500">Web/Mobile App</div>
+            </div>
+
+            <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+
+            <div class="text-center">
+              <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-network-wired text-green-600 text-2xl"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-900">API Gateway</div>
+              <div class="text-xs text-gray-500">REST/WebSocket API</div>
+            </div>
+
+            <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+
+            <div class="text-center">
+              <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-bolt text-purple-600 text-2xl"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-900">Lambda</div>
+              <div class="text-xs text-gray-500">Serverless Function</div>
+            </div>
+
+            <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+
+            <div class="text-center">
+              <div class="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-database text-orange-600 text-2xl"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-900">AWS Services</div>
+              <div class="text-xs text-gray-500">DynamoDB, S3...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      async function callApi() {
+        const name = document.getElementById('nameInput').value.trim() || 'ゲスト';
+        const submitBtn = document.getElementById('submitBtn');
+        const responseSection = document.getElementById('responseSection');
+        const responseBox = document.getElementById('responseBox');
+        const responseElement = document.getElementById('response');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusText = document.getElementById('statusText');
+        const responseTimeElement = document.getElementById('responseTime');
+
+        const startTime = Date.now();
+
+        // ボタンをローディング状態に
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i><span>送信中...</span>';
+        submitBtn.disabled = true;
+
+        // レスポンスセクションを非表示に
+        responseSection.classList.add('hidden');
+
+        const endpoint = `https://71w6asdmw3.execute-api.ap-northeast-1.amazonaws.com/Prod/?name=${encodeURIComponent(name)}`;
+
+        try {
+          const response = await fetch(endpoint);
+          const data = await response.json();
+          const endTime = Date.now();
+          const responseTime = endTime - startTime;
+
+          // 成功時の表示
+          responseBox.className = 'bg-green-50 border border-green-200 rounded-lg p-4';
+          statusIcon.className = 'w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0';
+          statusIcon.innerHTML = '<i class="fas fa-check text-green-600 text-xs"></i>';
+          responseElement.className = 'text-green-800 font-medium';
+          responseElement.textContent = data.message;
+          statusText.textContent = `${response.status} OK`;
+          statusText.className = 'font-mono bg-green-100 px-1 rounded';
+          responseTimeElement.textContent = responseTime;
+
+          responseSection.classList.remove('hidden');
+
+        } catch (error) {
+          const endTime = Date.now();
+          const responseTime = endTime - startTime;
+
+          // エラー時の表示
+          responseBox.className = 'bg-red-50 border border-red-200 rounded-lg p-4';
+          statusIcon.className = 'w-6 h-6 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0';
+          statusIcon.innerHTML = '<i class="fas fa-exclamation-triangle text-red-600 text-xs"></i>';
+          responseElement.className = 'text-red-800 font-medium';
+          responseElement.textContent = 'API Gateway経由でのリクエストでエラーが発生しました: ' + error.message;
+          statusText.textContent = 'Error';
+          statusText.className = 'font-mono bg-red-100 px-1 rounded';
+          responseTimeElement.textContent = responseTime;
+
+          responseSection.classList.remove('hidden');
+
+        } finally {
+          // ボタンを元の状態に戻す
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>API実行</span>';
+          submitBtn.disabled = false;
+        }
+      }
+
+      // Enterキーでの実行
+      document.getElementById('nameInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          callApi();
+        }
+      });
+    </script>
+  </body>
+</html>
