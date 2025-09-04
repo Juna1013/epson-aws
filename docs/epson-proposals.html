@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <title>EPSON社内での運用提案 - セイコーエプソン インターン</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body class="bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
@@ -59,8 +58,100 @@
       </header>
 
       <!-- Article Content -->
-      <article id="markdown-content" class="prose dark:prose-invert lg:prose-xl max-w-none bg-white rounded-xl zenn-shadow zenn-border p-6">
-        <!-- Markdown content will be rendered here -->
+      <article class="bg-white rounded-xl zenn-shadow zenn-border p-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-6">EPSON社内での運用提案</h1>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6">S3、Lambda、API Gatewayの組み合わせによる製造業務の革新を実現する具体的な活用提案です。<br>この構成はサーバーレスアーキテクチャの代表例で、必要な時だけ処理を実行し、イベント駆動で効率的に業務を回すことが可能です。</p>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6"><span class="font-semibold text-gray-900">基本コンセプト:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li>必要なときだけ使える</li>
+          <li>自動化しやすい</li>
+          <li>セキュリティ制御が柔軟にできる</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6">つまり「静的コンテンツの配信」「イベント駆動型処理」「大量データの保存・分析」を組み合わせて業務改善を進めます。</p>
+        
+        <h2 class="text-2xl font-bold text-gray-900 mb-4 mt-8">具体的な活用例</h2>
+        <p class="text-base leading-relaxed text-gray-700 mb-6">エプソンの製造業務における4つの主要な活用シーンを想定します。</p>
+        
+        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">1. 射出成型精度分析</h3>
+        <p class="text-base leading-relaxed text-gray-700 mb-6">成型条件（温度、圧力、時間）と製品品質の関係を分析し、不良品発生要因の特定・予防策を講じるシステムです。</p>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">システム構成:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li><span class="font-semibold text-gray-900">Client:</span> 成型機センサーデータ送信</li>
+          <li><span class="font-semibold text-gray-900">API Gateway:</span> データルーティング</li>
+          <li><span class="font-semibold text-gray-900">Lambda:</span> 異常検知・アラート</li>
+          <li><span class="font-semibold text-gray-900">S3:</span> データ長期保存</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">期待効果:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li>不良率の大幅削減（予測精度向上）</li>
+          <li>メンテナンス時期の最適化</li>
+          <li>検査工程の自動化</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6"><a href="injection-molding.html" class="text-blue-600 hover:text-blue-800 underline">[射出成型精度分析デモへ移動]</a></p>
+        
+        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">2. 製品選定アプリ</h3>
+        <p class="text-base leading-relaxed text-gray-700 mb-6">顧客の使用条件・予算・機能要件に基づいて最適な製品を提案し、販売支援を効率化するシステムです。</p>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">システム構成:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li><span class="font-semibold text-gray-900">S3:</span> 製品情報・画像保存</li>
+          <li><span class="font-semibold text-gray-900">Lambda:</span> 最適製品検索</li>
+          <li><span class="font-semibold text-gray-900">API Gateway:</span> WebアプリAPI提供</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">期待効果:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li>営業提案時間の短縮</li>
+          <li>顧客満足度の向上</li>
+          <li>製品情報の一元管理</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6"><a href="product-selection.html" class="text-blue-600 hover:text-blue-800 underline">[製品選定デモへ移動]</a></p>
+        
+        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">3. 印刷機色分析</h3>
+        <p class="text-base leading-relaxed text-gray-700 mb-6">印刷結果の色品質を分析し、機械の調整・メンテナンス時期を最適化するシステムです。</p>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">システム構成:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li><span class="font-semibold text-gray-900">Client:</span> 色彩データ収集</li>
+          <li><span class="font-semibold text-gray-900">Lambda:</span> 色差分析・判定</li>
+          <li><span class="font-semibold text-gray-900">S3:</span> 基準データ・履歴保存</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">期待効果:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li>印刷品質の安定化</li>
+          <li>印刷コスト削減</li>
+          <li>品質管理の自動化</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6"><a href="print-color-analysis.html" class="text-blue-600 hover:text-blue-800 underline">[印刷機色分析デモへ移動]</a></p>
+        
+        <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">4. 外部連携システム</h3>
+        <p class="text-base leading-relaxed text-gray-700 mb-6">パートナー企業との安全なデータ共有とリアルタイム連携を実現するシステムです。</p>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">システム構成:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li><span class="font-semibold text-gray-900">API Gateway:</span> 外部アクセス制御と認証、データルーティング</li>
+          <li><span class="font-semibold text-gray-900">Lambda:</span> データ整形・暗号化・整合性チェック</li>
+          <li><span class="font-semibold text-gray-900">S3:</span> 共有データ・履歴ログの長期保存</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-3"><span class="font-semibold text-gray-900">期待効果:</span></p>
+        <ul class="list-disc list-inside space-y-2 mb-6 text-gray-700">
+          <li>取引先との情報共有の迅速化</li>
+          <li>在庫・生産計画の最適化によるコスト削減</li>
+          <li>セキュアなデータ連携による信頼性向上</li>
+          <li>リアルタイムな連携で市場変化への即応力強化</li>
+        </ul>
+        
+        <p class="text-base leading-relaxed text-gray-700 mb-6"><a href="partner-integration.html" class="text-blue-600 hover:text-blue-800 underline">[外部連携システムデモへ移動]</a></p>
       </article>
 
       <!-- Navigation -->
@@ -208,12 +299,6 @@ S3、Lambda、API Gatewayの組み合わせによる製造業務の革新を実�
 
 [外部連携システムデモへ移動](partner-integration.html)
 
-</div>
-    </script>
     <script src="../assets/js/theme.js"></script>
-    <script>
-      const markdownText = document.getElementById('markdown-source').textContent;
-      document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
-    </script>
   </body>
 </html>
