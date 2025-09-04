@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EPSON社内での運用提案 - セイコーエプソン インターン</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      }
+      .zenn-shadow {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .zenn-border {
+        border: 1px solid #e4e4e7;
+      }
+      
+      .scenario-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+      }
+      .message-animation {
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* Dark mode styles */
+      .dark {
+        color-scheme: dark;
+      }
+      
+      .dark body {
+        background-color: #0d1117;
+        color: #e6edf3;
+      }
+      
+      .dark .bg-white {
+        background-color: #161b22 !important;
+      }
+      
+      .dark .bg-gray-50 {
+        background-color: #0d1117 !important;
+      }
+      
+      .dark .text-gray-900 {
+        color: #e6edf3 !important;
+      }
+      
+      .dark .text-gray-600 {
+        color: #8b949e !important;
+      }
+      
+      .dark .text-gray-500 {
+        color: #656d76 !important;
+      }
+      
+      .dark .border-gray-200 {
+        border-color: #30363d !important;
+      }
+      
+      .dark .border-gray-100 {
+        border-color: #21262d !important;
+      }
+      
+      /* Dark mode toggle button */
+      .theme-toggle {
+        position: relative;
+        width: 50px;
+        height: 24px;
+        background: #30363d;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .theme-toggle::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #e6edf3;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      
+      .dark .theme-toggle {
+        background: #58a6ff;
+      }
+      
+      .dark .theme-toggle::before {
+        transform: translateX(26px);
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div class="max-w-4xl mx-auto px-4 py-4">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors">
+            <i class="fas fa-arrow-left text-gray-600"></i>
+          </a>
+          <div class="flex items-center space-x-3 flex-1">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-building text-blue-600 text-sm"></i>
+            </div>
+            <div>
+              <h1 class="font-semibold text-gray-900 text-sm">EPSON社内での運用提案</h1>
+              <p class="text-xs text-gray-500">AWS活用による製造業務効率化</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-sun text-orange-500 text-sm"></i>
+            <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
+            <i class="fas fa-moon text-blue-400 text-sm"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <!-- Article Header -->
+      <header class="mb-8">
+        <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+          <span>📅 2025年9月1日〜5日</span>
+          <span>•</span>
+          <span>🏢 セイコーエプソン株式会社</span>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">EPSON社内での運用提案</h1>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          AWSサーバーレス技術を活用した製造業務の効率化、品質向上、コスト削減を実現する具体的な運用提案
+        </p>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">運用提案</span>
+          <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">業務効率化</span>
+          <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">デモ体験</span>
+          <span class="bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">製造業DX</span>
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <article class="bg-white rounded-xl zenn-shadow zenn-border">
+        <!-- 概要 -->
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">AWS×エプソン製造業務活用提案</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            S3、Lambda、API Gatewayの組み合わせによる製造業務の革新を実現する具体的な活用提案です。
+          </p>
+          
+          <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+            <h3 class="font-medium text-blue-900 mb-2 flex items-center">
+              <i class="fas fa-lightbulb mr-2"></i>基本コンセプト
+            </h3>
+            <p class="text-sm text-blue-800">
+              <strong>必要なときだけ使える・自動化しやすい・セキュリティ制御が柔軟にできる</strong><br>
+              静的コンテンツの配信、イベント駆動型処理、大量データの保存・分析を活用した業務改善
+            </p>
+          </div>
+        </div>
+
+        <!-- 具体的な活用例 -->
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">具体的な活用例</h2>
+          <p class="text-gray-600 mb-6">エプソンの製造業務における4つの主要な活用シーン</p>
+
+          <div class="space-y-8">
+            <!-- 射出成型精度分析 -->
+            <div class="pb-6">
+              <div class="flex items-start space-x-3 mb-4">
+                <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="fas fa-industry text-red-600"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-gray-900 mb-2">射出成型精度分析</h3>
+                  <p class="text-gray-600 mb-4">
+                    成型条件（温度、圧力、時間）と製品品質の関係を分析し、不良品発生要因の特定・予防策を講じるシステムです。
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-blue-900 mb-3 text-sm">システム構成</h4>
+                      <div class="space-y-2 text-sm text-blue-800">
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Client:</strong> 成型機センサーデータ送信</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>API Gateway:</strong> データルーティング</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Lambda:</strong> 異常検知・アラート</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>S3:</strong> データ長期保存</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-green-900 mb-3 text-sm">期待効果</h4>
+                      <ul class="text-sm text-green-800 space-y-1">
+                        <li>• 不良率の大幅削減（予測精度向上）</li>
+                        <li>• メンテナンス時期の最適化</li>
+                        <li>• 検査工程の自動化</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 製品選定アプリ -->
+            <div class="pb-6">
+              <div class="flex items-start space-x-3 mb-4">
+                <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="fas fa-search text-green-600"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-gray-900 mb-2">製品選定アプリ</h3>
+                  <p class="text-gray-600 mb-4">
+                    顧客の使用条件・予算・機能要件に基づいて最適な製品を提案し、販売支援を効率化するシステムです。
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-blue-900 mb-3 text-sm">システム構成</h4>
+                      <div class="space-y-2 text-sm text-blue-800">
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>S3:</strong> 製品情報・画像保存</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Lambda:</strong> 最適製品検索</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>API Gateway:</strong> WebアプリAPI提供</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-green-900 mb-3 text-sm">期待効果</h4>
+                      <ul class="text-sm text-green-800 space-y-1">
+                        <li>• 営業提案時間の短縮</li>
+                        <li>• 顧客満足度の向上</li>
+                        <li>• 製品情報の一元管理</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 印刷機色分析 -->
+            <div class="pb-6">
+              <div class="flex items-start space-x-3 mb-4">
+                <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="fas fa-palette text-purple-600"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-gray-900 mb-2">印刷機色分析</h3>
+                  <p class="text-gray-600 mb-4">
+                    印刷結果の色品質を分析し、機械の調整・メンテナンス時期を最適化するシステムです。
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-blue-900 mb-3 text-sm">システム構成</h4>
+                      <div class="space-y-2 text-sm text-blue-800">
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Client:</strong> 色彩データ収集</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Lambda:</strong> 色差分析・判定</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>S3:</strong> 基準データ・履歴保存</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-green-900 mb-3 text-sm">期待効果</h4>
+                      <ul class="text-sm text-green-800 space-y-1">
+                        <li>• 印刷品質の安定化</li>
+                        <li>• 印刷コスト削減</li>
+                        <li>• 品質管理の自動化</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 外部連携システム -->
+            <div class="pb-6">
+              <div class="flex items-start space-x-3 mb-4">
+                <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <i class="fas fa-network-wired text-orange-600"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-gray-900 mb-2">外部連携システム</h3>
+                  <p class="text-gray-600 mb-4">
+                    パートナー企業との安全なデータ共有とリアルタイム連携を実現するシステムです。
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-blue-900 mb-3 text-sm">システム構成</h4>
+                      <div class="space-y-2 text-sm text-blue-800">
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>API Gateway:</strong> 外部API提供</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>Lambda:</strong> データ変換・認証</span>
+                        </div>
+                        <div class="flex items-center">
+                          <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                          <span><strong>S3:</strong> 共有データ管理</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                      <h4 class="font-medium text-green-900 mb-3 text-sm">期待効果</h4>
+                      <ul class="text-sm text-green-800 space-y-1">
+                        <li>• データ連携の自動化</li>
+                        <li>• セキュリティ強化</li>
+                        <li>• 業務効率の向上</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 製品選定アプリ デモセクション -->
+        <div class="p-6 border-b border-gray-100">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">製品選定アプリ - 実動デモ</h2>
+              <p class="text-gray-600">顧客ニーズに基づく最適製品提案システムの体験</p>
+            </div>
+            <button id="toggleDemo" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors">
+              <i class="fas fa-play mr-2"></i>デモを開始
+            </button>
+          </div>
+
+          <div id="demoSection" class="hidden">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div class="flex items-start space-x-3">
+                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i class="fas fa-info text-blue-600 text-xs"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-blue-900 mb-1 text-sm">デモについて</h3>
+                  <p class="text-blue-800 text-xs leading-relaxed">
+                    お客様の用途・予算・要件を入力すると、AIがエプソンの最適な製品を提案します。
+                    下のシナリオボタンまたは直接入力でお試しください。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          <!-- シナリオボタン -->
+          <div class="mb-4">
+            <div class="flex flex-wrap gap-2">
+              <button onclick="loadScenario('office')" class="scenario-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-xs hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                <i class="fas fa-building mr-1"></i>オフィス向け
+              </button>
+              <button onclick="loadScenario('home')" class="scenario-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-xs hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                <i class="fas fa-home mr-1"></i>家庭用
+              </button>
+              <button onclick="loadScenario('photo')" class="scenario-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-xs hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                <i class="fas fa-camera mr-1"></i>写真印刷
+              </button>
+              <button onclick="loadScenario('business')" class="scenario-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-xs hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                <i class="fas fa-chart-bar mr-1"></i>大量印刷
+              </button>
+              <button onclick="loadScenario('industrial')" class="scenario-btn bg-white border border-gray-300 rounded-full px-4 py-2 text-xs hover:border-blue-400 hover:text-blue-600 transition-all duration-200">
+                <i class="fas fa-industry mr-1"></i>産業用
+              </button>
+            </div>
+          </div>
+
+          <!-- チャットインターフェース -->
+          <div class="border rounded-lg bg-gray-50" style="height: 400px;">
+            <div id="chatMessages" class="h-64 overflow-y-auto p-4 space-y-4">
+              <div class="flex items-start space-x-3">
+                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-user-check text-blue-600 text-sm"></i>
+                </div>
+                <div class="bg-white rounded-2xl rounded-tl-md px-4 py-3 max-w-md shadow-sm border">
+                  <p class="text-gray-800 text-sm">
+                    こんにちは！エプソン製品選定AIです。<br><br>
+                    <strong>🎯 あなたの用途・予算・要件を教えてください</strong><br>
+                    • どのような用途でお使いになりますか？<br>
+                    • 月間印刷量はどのくらいですか？<br>
+                    • ご予算の目安はありますか？
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-t bg-white p-4">
+              <form id="chatForm" class="flex items-end space-x-3">
+                <div class="flex-1 relative">
+                  <input
+                    id="chatInput"
+                    type="text"
+                    placeholder="例：オフィスで月500枚、カラー印刷も多く使います..."
+                    class="w-full px-4 py-2 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    autocomplete="off"
+                  />
+                  <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 epson-bg-blue text-white rounded-full hover:bg-blue-700 transition-colors flex items-center justify-center">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 印刷機色分析 -->
+        <div class="bg-white rounded-2xl shadow-sm border p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-palette text-purple-600"></i>
+            </div>
+            <h3 class="text-lg font-semibold">印刷機色分析</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">🎯 目的</h4>
+              <p class="text-xs text-gray-600">
+                印刷物の色品質を自動分析し、色味のブレや印刷不良を早期検出して品質管理を向上
+              </p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">🔄 システム構成</h4>
+              <div class="space-y-2">
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-purple-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>S3:</strong> 印刷サンプル画像・色彩データの大容量保存
+                  </div>
+                </div>
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-purple-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>Lambda:</strong> 色解析アルゴリズム・標準色との比較処理
+                  </div>
+                </div>
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-purple-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>API Gateway:</strong> 検査結果のリアルタイム配信
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">📊 期待効果</h4>
+              <ul class="text-xs text-gray-600 space-y-1">
+                <li>• 色品質の均一化・安定化</li>
+                <li>• 印刷不良の早期発見</li>
+                <li>• 手動検査工数の削減</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 社内日程管理アプリ -->
+        <div class="bg-white rounded-2xl shadow-sm border p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-calendar text-orange-600"></i>
+            </div>
+            <h3 class="text-lg font-semibold">社内日程管理アプリ</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">🎯 目的</h4>
+              <p class="text-xs text-gray-600">
+                部門横断的な会議・イベント・設備予約を一元管理し、スケジュール調整を効率化
+              </p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">🔄 システム構成</h4>
+              <div class="space-y-2">
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-orange-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>S3:</strong> カレンダーデータ・会議資料の保存
+                  </div>
+                </div>
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-orange-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>Lambda:</strong> 予定の追加・更新・通知処理
+                  </div>
+                </div>
+                <div class="flex items-start text-xs">
+                  <div class="w-2 h-2 bg-orange-600 rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                  <div>
+                    <strong>API Gateway:</strong> 社員向けWebアプリ・モバイルアプリAPI
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="font-medium mb-2 text-sm">📊 期待効果</h4>
+              <ul class="text-xs text-gray-600 space-y-1">
+                <li>• 会議室・設備の利用効率向上</li>
+                <li>• ダブルブッキングの防止</li>
+                <li>• 部門間連携の促進</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AWS構成による利点 -->
+      <section class="bg-white rounded-xl zenn-shadow zenn-border mb-8">
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">
+            <i class="fas fa-chart-line mr-2"></i>AWS構成がエプソンにもたらす利点
+          </h2>
+          <p class="text-gray-600">サーバーレス技術による具体的なメリット</p>
+        </div>
+        
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center border rounded-lg p-4">
+              <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-dollar-sign text-green-600"></i>
+              </div>
+              <h3 class="font-medium text-gray-900 mb-2">コスト効率</h3>
+              <p class="text-sm text-gray-600">
+                初期投資不要、使用量に応じた従量制でコスト最適化を実現
+              </p>
+            </div>
+            
+            <div class="text-center border rounded-lg p-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-cogs text-blue-600"></i>
+              </div>
+              <h3 class="font-medium text-gray-900 mb-2">運用負荷軽減</h3>
+              <p class="text-sm text-gray-600">
+                サーバー管理・メンテナンスが不要、ITチームは戦略的業務に集中可能
+              </p>
+            </div>
+            
+            <div class="text-center border rounded-lg p-4">
+              <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-expand-arrows-alt text-purple-600"></i>
+              </div>
+              <h3 class="font-medium text-gray-900 mb-2">柔軟な拡張性</h3>
+              <p class="text-sm text-gray-600">
+                業務拡大・データ増加に応じた自動スケーリング、将来の成長に対応
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 導入ロードマップ -->
+      <section class="bg-white rounded-xl zenn-shadow zenn-border">
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">
+            <i class="fas fa-road mr-2"></i>導入ロードマップ提案
+          </h2>
+          <p class="text-gray-600">段階的な導入アプローチで確実な効果を実現</p>
+        </div>
+        
+        <div class="p-6">
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="text-blue-600 font-bold text-sm">1</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-900 mb-1">Phase 1: パイロット運用（1-2ヶ月）</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  社内日程管理アプリから開始。リスクが低く効果が見えやすい領域で検証。
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 一部門での限定運用開始</li>
+                  <li>• ユーザビリティ・パフォーマンス評価</li>
+                  <li>• コスト・効果測定</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="text-green-600 font-bold text-sm">2</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-900 mb-1">Phase 2: 製造業務適用（2-4ヶ月）</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  射出成型精度分析・印刷機色分析の導入。製造品質向上に直結。
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 製造ラインでの段階的導入</li>
+                  <li>• 既存システムとの連携検証</li>
+                  <li>• 品質改善効果の定量評価</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span class="text-purple-600 font-bold text-sm">3</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-900 mb-1">Phase 3: 全社展開・高度化（4-6ヶ月）</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                  製品選定アプリ導入と機械学習機能の追加。競争優位性の確立。
+                </p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 全部門・全製品への適用拡大</li>
+                  <li>• AI・機械学習機能の段階的導入</li>
+                  <li>• 継続的な改善・最適化</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Navigation -->
+      <nav class="mt-12 pt-8 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+          <a href="s3-merits.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
+            <i class="fas fa-arrow-left"></i>
+            <span>S3のメリット・デメリット</span>
+          </a>
+          <div class="flex items-center space-x-4">
+            <a href="index.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
+              <span>記事一覧に戻る</span>
+              <i class="fas fa-home"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </main>
+
+    <script>
+      const toggleDemo = document.getElementById('toggleDemo');
+      const demoSection = document.getElementById('demoSection');
+      const chatMessages = document.getElementById('chatMessages');
+      const chatInput = document.getElementById('chatInput');
+      const chatForm = document.getElementById('chatForm');
+
+      // 製品データベース（デモ用）
+      const products = {
+        office: {
+          name: "EW-M973A3T",
+          type: "ビジネス複合機",
+          price: "約180,000円",
+          features: ["A3対応", "自動両面印刷", "大容量インクタンク", "無線LAN"],
+          recommendation: "月間印刷量500〜2000枚のオフィスに最適。大容量インクタンクで印刷コストを大幅削減できます。"
+        },
+        home: {
+          name: "EW-456A",
+          type: "ホーム複合機",
+          price: "約25,000円",
+          features: ["コンパクト設計", "6色インク", "スマホ連携", "Wi-Fi Direct"],
+          recommendation: "家庭での使用に最適。写真も文書もキレイに印刷でき、置き場所を選ばないコンパクト設計です。"
+        },
+        photo: {
+          name: "EP-50V",
+          type: "A3フォトプリンター", 
+          price: "約60,000円",
+          features: ["10色インク", "A3ノビ対応", "CDレーベル印刷", "色域拡張"],
+          recommendation: "写真愛好家向け。10色インクによる美しいグラデーション表現で、プロ品質の写真印刷が可能です。"
+        },
+        business: {
+          name: "LX-10050MF",
+          type: "ビジネスインクジェット",
+          price: "約320,000円", 
+          features: ["高速印刷100枚/分", "大容量給紙", "セキュリティ機能", "省電力"],
+          recommendation: "大量文書印刷に特化。高速印刷と低ランニングコストで、ビジネス文書の生産性を大幅向上させます。"
+        },
+        industrial: {
+          name: "SureColor SC-T5450M",
+          type: "大判プリンター",
+          price: "約450,000円",
+          features: ["A0対応", "4色顔料インク", "CAD図面印刷", "メンテナンス性"],
+          recommendation: "建築・設計業界向け。CAD図面や技術文書の高品質印刷に最適化された産業用大判プリンターです。"
+        }
+      };
+
+      const scenarios = {
+        office: "オフィスで月500枚程度印刷します。カラー資料も多く、A3対応が必要です。予算は20万円程度です。",
+        home: "家庭で月20枚程度、写真と文書を印刷したいです。予算は3万円以内で考えています。",
+        photo: "写真印刷が中心で、A3サイズまで対応したいです。画質重視で、予算は10万円程度です。",
+        business: "事務所で月2000枚以上印刷します。主に文書中心で高速印刷が必要です。",
+        industrial: "建築図面をA0サイズで印刷したいです。線画がくっきり出る業務用を探しています。"
+      };
+
+      // デモの表示/非表示切り替え
+      toggleDemo.addEventListener('click', function() {
+        if (demoSection.classList.contains('hidden')) {
+          demoSection.classList.remove('hidden');
+          toggleDemo.innerHTML = '<i class="fas fa-pause mr-2"></i>デモを閉じる';
+        } else {
+          demoSection.classList.add('hidden');
+          toggleDemo.innerHTML = '<i class="fas fa-play mr-2"></i>デモを開始';
+        }
+      });
+
+      function addMessage(content, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex items-start space-x-3 message-animation ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
+        
+        const iconClass = isUser ? 'fas fa-user' : 'fas fa-user-check';
+        const iconBgClass = isUser ? 'bg-blue-500' : 'bg-blue-100';
+        const iconTextClass = isUser ? 'text-white' : 'text-blue-600';
+        const messageBgClass = isUser ? 'bg-blue-500 text-white' : 'bg-white border shadow-sm';
+        
+        messageDiv.innerHTML = `
+          <div class="w-8 h-8 ${iconBgClass} rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="${iconClass} ${iconTextClass} text-sm"></i>
+          </div>
+          <div class="${messageBgClass} rounded-2xl ${isUser ? 'rounded-tr-md' : 'rounded-tl-md'} px-4 py-3 max-w-md">
+            ${content}
+          </div>
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function generateRecommendation(input) {
+        let recommendation = '';
+        const lowerInput = input.toLowerCase();
+        
+        if (lowerInput.includes('オフィス') || lowerInput.includes('事務所') || (lowerInput.includes('500') && lowerInput.includes('枚'))) {
+          const product = products.office;
+          recommendation = `
+            <div class="space-y-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
+                <p class="text-base font-bold mb-1">${product.name}</p>
+                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
+                <p class="text-sm">${product.recommendation}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
+                <ul class="text-sm space-y-1">
+                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded-lg">
+                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>S3にカタログ情報を保存、Lambdaで条件マッチング処理、API Gateway経由で営業支援アプリに連携</p>
+              </div>
+            </div>
+          `;
+        } else if (lowerInput.includes('家庭') || lowerInput.includes('ホーム') || lowerInput.includes('20枚')) {
+          const product = products.home;
+          recommendation = `
+            <div class="space-y-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
+                <p class="text-base font-bold mb-1">${product.name}</p>
+                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
+                <p class="text-sm">${product.recommendation}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
+                <ul class="text-sm space-y-1">
+                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded-lg">
+                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>顧客の使用パターン分析をS3で蓄積、Lambdaでパーソナライズ推薦を自動実行</p>
+              </div>
+            </div>
+          `;
+        } else if (lowerInput.includes('写真') || lowerInput.includes('画質') || lowerInput.includes('a3')) {
+          const product = products.photo;
+          recommendation = `
+            <div class="space-y-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
+                <p class="text-base font-bold mb-1">${product.name}</p>
+                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
+                <p class="text-sm">${product.recommendation}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
+                <ul class="text-sm space-y-1">
+                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded-lg">
+                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>印刷サンプル画像をS3保存、Lambdaで色分析・品質管理を自動化</p>
+              </div>
+            </div>
+          `;
+        } else if (lowerInput.includes('2000') || lowerInput.includes('大量') || lowerInput.includes('高速')) {
+          const product = products.business;
+          recommendation = `
+            <div class="space-y-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
+                <p class="text-base font-bold mb-1">${product.name}</p>
+                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
+                <p class="text-sm">${product.recommendation}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
+                <ul class="text-sm space-y-1">
+                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded-lg">
+                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>印刷ログをS3蓄積、Lambdaでメンテナンス予測・消耗品自動発注システム連携</p>
+              </div>
+            </div>
+          `;
+        } else if (lowerInput.includes('図面') || lowerInput.includes('a0') || lowerInput.includes('産業') || lowerInput.includes('業務')) {
+          const product = products.industrial;
+          recommendation = `
+            <div class="space-y-3">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
+                <p class="text-base font-bold mb-1">${product.name}</p>
+                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
+                <p class="text-sm">${product.recommendation}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
+                <ul class="text-sm space-y-1">
+                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-yellow-50 p-2 rounded-lg">
+                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>CADデータをS3保存、Lambda経由で図面管理システムと連携・バージョン管理を自動化</p>
+              </div>
+            </div>
+          `;
+        } else {
+          recommendation = `
+            <p class="text-gray-800 text-sm">申し訳ございません。より具体的な情報をお教えいただけますか？</p>
+            <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+              <h5 class="font-medium text-blue-800 mb-2">📝 お聞かせください</h5>
+              <ul class="text-sm text-blue-700 space-y-1">
+                <li>• 使用用途（オフィス/家庭/写真印刷など）</li>
+                <li>• 月間印刷枚数の目安</li>
+                <li>• ご予算の範囲</li>
+                <li>• カラー印刷の頻度</li>
+                <li>• 必要な用紙サイズ</li>
+              </ul>
+            </div>
+          `;
+        }
+        
+        return recommendation;
+      }
+
+      function loadScenario(type) {
+        const scenario = scenarios[type];
+        if (scenario) {
+          chatInput.value = scenario;
+          chatInput.focus();
+        }
+      }
+
+      chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const input = chatInput.value.trim();
+        if (!input) return;
+
+        // ユーザーメッセージを追加
+        addMessage(`<p class="text-sm">${input}</p>`, true);
+        chatInput.value = '';
+
+        // AIレスポンス
+        setTimeout(() => {
+          const recommendation = generateRecommendation(input);
+          addMessage(recommendation);
+        }, 1000);
+      });
+      
+      // Dark mode functionality
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        
+        if (isDark) {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Initialize theme on page load
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          if (e.matches) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      });
+
+      // Initialize theme when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initTheme);
+      
+      // Initialize immediately for faster loading
+      initTheme();
+    </script>
+  </body>
+</html>

@@ -2,232 +2,404 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>Amazon S3 詳細 - セイコーエプソン インターン</title>
+    <title>Amazon S3とは？ - セイコーエプソン インターン</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      .epson-gradient-bg {
-        background: linear-gradient(135deg, #003399 0%, #0066cc 50%, #004080 100%);
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      }
+      .zenn-shadow {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .zenn-border {
+        border: 1px solid #e4e4e7;
       }
       .feature-card {
-        transition: all 0.3s ease;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .feature-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 51, 153, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
       }
-      .epson-blue {
-        color: #003399;
+      
+      /* Dark mode styles */
+      .dark {
+        color-scheme: dark;
       }
-      .epson-bg-blue {
-        background-color: #0066cc;
+      
+      .dark body {
+        background-color: #0d1117;
+        color: #e6edf3;
       }
-      .epson-accent {
-        color: #0066cc;
+      
+      .dark .bg-white {
+        background-color: #161b22 !important;
+      }
+      
+      .dark .bg-gray-50 {
+        background-color: #0d1117 !important;
+      }
+      
+      .dark .bg-gray-50 {
+        background-color: #21262d !important;
+      }
+      
+      .dark .text-gray-900 {
+        color: #e6edf3 !important;
+      }
+      
+      .dark .text-gray-600 {
+        color: #8b949e !important;
+      }
+      
+      .dark .text-gray-500 {
+        color: #656d76 !important;
+      }
+      
+      .dark .zenn-border {
+        border-color: #30363d !important;
+      }
+      
+      .dark .zenn-shadow {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+      }
+      
+      .dark .feature-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+      }
+      
+      .dark .border-gray-200 {
+        border-color: #30363d !important;
+      }
+      
+      .dark .bg-blue-50 {
+        background-color: #0c2d48 !important;
+      }
+      
+      .dark .border-blue-500 {
+        border-color: #58a6ff !important;
+      }
+      
+      .dark .text-blue-900 {
+        color: #79c0ff !important;
+      }
+      
+      .dark .text-blue-800 {
+        color: #79c0ff !important;
+      }
+      
+      .dark .bg-green-100 {
+        background-color: #0f2419 !important;
+      }
+      
+      .dark .text-green-600 {
+        color: #3fb950 !important;
+      }
+      
+      /* Dark mode toggle button */
+      .theme-toggle {
+        position: relative;
+        width: 50px;
+        height: 24px;
+        background: #30363d;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .theme-toggle::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #e6edf3;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      
+      .dark .theme-toggle {
+        background: #58a6ff;
+      }
+      
+      .dark .theme-toggle::before {
+        transform: translateX(26px);
+        background: #ffffff;
       }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-900">
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
-      <div class="max-w-6xl mx-auto px-4 py-3">
-        <div class="flex items-center space-x-3">
-          <a href="index.html" class="text-gray-500 hover:text-gray-700">
-            <i class="fas fa-arrow-left"></i>
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="bg-white zenn-border border-b sticky top-0 z-10">
+      <div class="max-w-4xl mx-auto px-4 py-4">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 transition-colors">
+            <i class="fas fa-arrow-left text-gray-600"></i>
           </a>
-          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-            <i class="fas fa-database text-blue-600 text-sm"></i>
+          <div class="flex items-center space-x-3 flex-1">
+            <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-server text-orange-600 text-sm"></i>
+            </div>
+            <div>
+              <h1 class="font-semibold text-gray-900 text-sm">サーバーレスとは？</h1>
+              <p class="text-xs text-gray-500">AWS サーバーレス基礎</p>
+            </div>
           </div>
-          <div>
-            <h1 class="font-semibold text-gray-900">Amazon S3</h1>
-            <p class="text-xs text-gray-500">Simple Storage Service</p>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-sun text-orange-500 text-sm"></i>
+            <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
+            <i class="fas fa-moon text-blue-400 text-sm"></i>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 py-8">
-      <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
-        <div class="flex items-start space-x-4 mb-6">
-          <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <i class="fas fa-database text-blue-600 text-lg"></i>
-          </div>
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-2">Amazon S3とは</h2>
-            <p class="text-gray-600 leading-relaxed">
-              Amazon Simple Storage Service (Amazon S3) は、業界をリードするスケーラビリティ、データ可用性、セキュリティ、
-              およびパフォーマンスを提供するオブジェクトストレージサービスです。あらゆる量のデータを保存および取得できます。
-            </p>
-          </div>
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <!-- Article Header -->
+      <header class="mb-8">
+        <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+          <span>📅 2025年9月1日〜5日</span>
+          <span>•</span>
+          <span>🏢 セイコーエプソン株式会社</span>
         </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-          <div class="text-center">
-            <div class="text-3xl font-bold text-orange-600 mb-2">99.999999999%</div>
-            <div class="text-sm text-gray-500">データ耐久性</div>
-          </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold text-blue-600 mb-2">無制限</div>
-            <div class="text-sm text-gray-500">ストレージ容量</div>
-          </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold text-green-600 mb-2">200+</div>
-            <div class="text-sm text-gray-500">機能とサービス</div>
-          </div>
-          <div class="text-center">
-            <div class="text-3xl font-bold text-purple-600 mb-2">全世界</div>
-            <div class="text-sm text-gray-500">利用可能</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-shield-alt text-blue-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">業界最高レベルのセキュリティ</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            暗号化、アクセス管理、脅威検出などの包括的なセキュリティ機能でデータを保護します。
-          </p>
-        </div>
-
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-expand-arrows-alt text-green-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">無制限のスケーラビリティ</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            データ量の増加に応じて自動的にスケールし、パフォーマンスを維持します。
-          </p>
-        </div>
-
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-dollar-sign text-purple-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">コスト最適化</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            使用量ベースの料金体系と、自動的なストレージクラス移行でコストを削減します。
-          </p>
-        </div>
-
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-tachometer-alt text-red-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">高速パフォーマンス</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            マルチパートアップロードと転送高速化により、大容量ファイルも高速転送可能です。
-          </p>
-        </div>
-
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-layer-group text-yellow-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">ストレージクラス</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            アクセス頻度に応じて最適なストレージクラスを選択し、コストを最適化できます。
-          </p>
-        </div>
-
-        <div class="feature-card bg-white rounded-2xl p-6 border">
-          <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-            <i class="fas fa-cogs text-indigo-600"></i>
-          </div>
-          <h3 class="font-semibold text-gray-900 mb-2">管理機能</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            バージョン管理、ライフサイクル管理、イベント通知などの高度な管理機能を提供します。
-          </p>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
-        <h2 class="text-xl font-bold text-gray-900 mb-6">主な使用事例</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-globe text-blue-600 text-sm"></i>
-            </div>
-            <div>
-              <h3 class="font-medium text-gray-900 mb-1">静的ウェブサイトホスティング</h3>
-              <p class="text-gray-600 text-sm">HTMLファイル、CSS、JavaScript、画像などを配信</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-save text-green-600 text-sm"></i>
-            </div>
-            <div>
-              <h3 class="font-medium text-gray-900 mb-1">データバックアップ</h3>
-              <p class="text-gray-600 text-sm">重要なデータの安全なバックアップと復元</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-chart-bar text-purple-600 text-sm"></i>
-            </div>
-            <div>
-              <h3 class="font-medium text-gray-900 mb-1">ビッグデータ分析</h3>
-              <p class="text-gray-600 text-sm">大量のデータを蓄積し、分析プラットフォームと連携</p>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-video text-orange-600 text-sm"></i>
-            </div>
-            <div>
-              <h3 class="font-medium text-gray-900 mb-1">メディア配信</h3>
-              <p class="text-gray-600 text-sm">動画、音声、画像コンテンツの配信基盤</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-2xl shadow-sm border p-8">
-        <h2 class="text-xl font-bold text-gray-900 mb-6">料金体系</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="border border-gray-200 rounded-xl p-6">
-            <h3 class="font-semibold text-gray-900 mb-3">S3 Standard</h3>
-            <div class="text-2xl font-bold text-blue-600 mb-2">$0.023</div>
-            <div class="text-sm text-gray-500 mb-4">最初の50TB/月</div>
-            <ul class="text-sm text-gray-600 space-y-2">
-              <li>• 頻繁なアクセス</li>
-              <li>• 低レイテンシー</li>
-              <li>• 高スループット</li>
-            </ul>
-          </div>
-
-          <div class="border border-gray-200 rounded-xl p-6">
-            <h3 class="font-semibold text-gray-900 mb-3">S3 Intelligent-Tiering</h3>
-            <div class="text-2xl font-bold text-green-600 mb-2">$0.0125</div>
-            <div class="text-sm text-gray-500 mb-4">自動最適化</div>
-            <ul class="text-sm text-gray-600 space-y-2">
-              <li>• 自動コスト最適化</li>
-              <li>• アクセスパターン分析</li>
-              <li>• 取得料金なし</li>
-            </ul>
-          </div>
-
-          <div class="border border-gray-200 rounded-xl p-6">
-            <h3 class="font-semibold text-gray-900 mb-3">S3 Glacier</h3>
-            <div class="text-2xl font-bold text-purple-600 mb-2">$0.004</div>
-            <div class="text-sm text-gray-500 mb-4">アーカイブ用</div>
-            <ul class="text-sm text-gray-600 space-y-2">
-              <li>• 長期保管用</li>
-              <li>• 低コスト</li>
-              <li>• 取得に時間要</li>
-            </ul>
-          </div>
-        </div>
-        <p class="text-xs text-gray-500 mt-4">
-          * 料金は米国東部（バージニア北部）リージョンの例です。実際の料金は地域により異なります。
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">サーバーレスとは？</h1>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組みについて、
+          オンプレミス・仮想サーバーとの比較を通じて詳しく解説します。
         </p>
-      </div>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">サーバーレス</span>
+          <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">AWS</span>
+          <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">S3</span>
+          <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">クラウド</span>
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <article class="bg-white rounded-xl zenn-shadow zenn-border">
+        <!-- サーバーレスの概要 -->
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">サーバーレスとは？</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組みです。
+            実際にはサーバーは存在しますが、開発者や運用者がサーバーの管理を行う必要がありません。
+          </p>
+
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">インフラ形態の比較</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="px-4 py-3 text-left font-medium text-gray-900">形態</th>
+                  <th class="px-4 py-3 text-left font-medium text-gray-900">管理方法</th>
+                  <th class="px-4 py-3 text-left font-medium text-gray-900">メリット</th>
+                  <th class="px-4 py-3 text-left font-medium text-gray-900">デメリット</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <i class="fas fa-server text-red-600 mr-2"></i>
+                      <strong>オンプレミス</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-gray-600">物理サーバーを自社で管理</td>
+                  <td class="px-4 py-3 text-green-600">自由度が高い</td>
+                  <td class="px-4 py-3 text-red-600">用意するのに時間がかかる</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <i class="fas fa-cloud text-blue-600 mr-2"></i>
+                      <strong>仮想サーバー (EC2)</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-gray-600">クラウド上の仮想サーバーを管理</td>
+                  <td class="px-4 py-3 text-green-600">柔軟性と管理のバランス</td>
+                  <td class="px-4 py-3 text-orange-600">運用管理が必要</td>
+                </tr>
+                <tr class="bg-orange-50">
+                  <td class="px-4 py-3">
+                    <div class="flex items-center">
+                      <i class="fas fa-magic text-orange-600 mr-2"></i>
+                      <strong>サーバーレス (S3)</strong>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-gray-600">サーバーを意識せずに利用</td>
+                  <td class="px-4 py-3 text-green-600">完全管理不要・自動スケーリング</td>
+                  <td class="px-4 py-3 text-gray-400">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Amazon S3の詳細 -->
+        <div class="p-6 border-b border-gray-100">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Amazon S3の特徴</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            AWSが提供するオブジェクトストレージサービスです。サーバーレス構成において、
+            ファイルやデータを保存するための基盤として重要な役割を果たします。
+          </p>
+
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">主要な仕様</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="text-center py-3">
+              <div class="text-2xl font-bold text-blue-600 mb-1">99.999999999%</div>
+              <div class="text-sm text-gray-600">データ耐久性</div>
+            </div>
+            <div class="text-center py-3">
+              <div class="text-2xl font-bold text-green-600 mb-1">無制限</div>
+              <div class="text-sm text-gray-600">ストレージ容量</div>
+            </div>
+            <div class="text-center py-3">
+              <div class="text-2xl font-bold text-purple-600 mb-1">200+</div>
+              <div class="text-sm text-gray-600">機能とサービス</div>
+            </div>
+            <div class="text-center py-3">
+              <div class="text-2xl font-bold text-orange-600 mb-1">全世界</div>
+              <div class="text-sm text-gray-600">利用可能</div>
+            </div>
+          </div>
+
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">主要機能</h3>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-shield-alt text-blue-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">セキュリティ</h4>
+                <p class="text-gray-600 text-sm">暗号化、アクセス管理、脅威検出などの包括的なセキュリティ機能</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-expand-arrows-alt text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">スケーラビリティ</h4>
+                <p class="text-gray-600 text-sm">データ量やアクセス数の増加に応じた自動スケーリング</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-orange-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-dollar-sign text-orange-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">従量課金制</h4>
+                <p class="text-gray-600 text-sm">使用した分だけ支払う従量課金制でコスト最適化</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-cogs text-purple-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">他サービス連携</h4>
+                <p class="text-gray-600 text-sm">AWSの他サービスとの柔軟な組み合わせ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 実用例 -->
+        <div class="p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">エプソンでの活用例</h2>
+          <p class="text-gray-600 mb-6">製造業務におけるサーバーレス技術の具体的な活用方法</p>
+
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3 py-3">
+              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-images text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">製品画像・カタログの管理</h4>
+                <p class="text-gray-600 text-sm">大量の製品画像や技術資料をS3に保存し、必要な時だけアクセス</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 py-3">
+              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-chart-line text-blue-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">データ分析基盤</h4>
+                <p class="text-gray-600 text-sm">製造ログや品質データを安全に長期保存し、分析に活用</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3 py-3">
+              <div class="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-handshake text-purple-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">外部連携</h4>
+                <p class="text-gray-600 text-sm">パートナー企業との安全なデータ共有やAPI連携</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Navigation -->
+      <nav class="mt-12 pt-8 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+          <a href="index.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
+            <i class="fas fa-arrow-left"></i>
+            <span>記事一覧に戻る</span>
+          </a>
+          <div class="flex items-center space-x-4">
+            <a href="s3-merits.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium">
+              <span>S3のメリット・デメリット</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
     </main>
+
+    <script>
+      // Dark mode functionality
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        
+        if (isDark) {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Initialize theme on page load
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+
+      // Initialize theme when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initTheme);
+      
+      // Initialize immediately for faster loading
+      initTheme();
+    </script>
   </body>
 </html>

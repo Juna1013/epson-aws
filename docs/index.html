@@ -6,18 +6,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      .epson-gradient-bg {
-        background: linear-gradient(135deg, #003399 0%, #0066cc 50%, #004080 100%);
-      }
-      .chat-card {
-        transition: all 0.3s ease;
-        border: 1px solid #e5e7eb;
-      }
-      .chat-card:hover {
-        border-color: #0066cc;
-        box-shadow: 0 10px 25px rgba(0, 51, 153, 0.15);
-        transform: translateY(-2px);
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
       }
       .epson-blue {
         color: #003399;
@@ -28,102 +20,310 @@
       .epson-accent {
         color: #0066cc;
       }
+      .card-hover {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card-hover:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
+      .zenn-shadow {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .zenn-border {
+        border: 1px solid #e4e4e7;
+      }
+      
+      /* Dark mode styles */
+      .dark {
+        color-scheme: dark;
+      }
+      
+      .dark body {
+        background-color: #0d1117;
+        color: #e6edf3;
+      }
+      
+      .dark .bg-white {
+        background-color: #161b22 !important;
+      }
+      
+      .dark .bg-gray-50 {
+        background-color: #0d1117 !important;
+      }
+      
+      .dark .text-gray-900 {
+        color: #e6edf3 !important;
+      }
+      
+      .dark .text-gray-600 {
+        color: #8b949e !important;
+      }
+      
+      .dark .text-gray-500 {
+        color: #656d76 !important;
+      }
+      
+      .dark .zenn-border {
+        border-color: #30363d !important;
+      }
+      
+      .dark .zenn-shadow {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+      }
+      
+      .dark .card-hover:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+      }
+      
+      /* Dark mode toggle button */
+      .theme-toggle {
+        position: relative;
+        width: 50px;
+        height: 24px;
+        background: #30363d;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .theme-toggle::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #e6edf3;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+      
+      .dark .theme-toggle {
+        background: #58a6ff;
+      }
+      
+      .dark .theme-toggle::before {
+        transform: translateX(26px);
+        background: #ffffff;
+      }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-900 font-inter">
-    <header class="epson-gradient-bg text-white">
-      <div class="container mx-auto px-6 py-8">
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="bg-white zenn-border border-b">
+      <div class="max-w-6xl mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-              <i class="fas fa-cloud text-xl"></i>
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-cloud text-white text-lg"></i>
             </div>
             <div>
-              <h1 class="text-2xl font-bold">AWS Assistant</h1>
-              <p class="text-white text-opacity-80 text-sm">インテリジェントなクラウドサービスガイド</p>
+              <h1 class="text-xl font-semibold text-gray-900">AWS Assistant</h1>
+              <p class="text-sm text-gray-500">セイコーエプソン インターン成果発表</p>
             </div>
           </div>
-          <div class="hidden md:flex items-center space-x-4">
-            <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">v2.0</span>
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+              <i class="fas fa-sun text-orange-500 text-sm"></i>
+              <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
+              <i class="fas fa-moon text-blue-400 text-sm"></i>
+            </div>
+            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">v2.0</span>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="container mx-auto px-6 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <a href="s3.html" class="chat-card bg-white rounded-2xl p-6 block group">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-orange-200 transition-colors">
-              <i class="fas fa-database text-orange-600 text-lg"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900 mb-2">サーバーレスとは？</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                スケーラブルなオブジェクトストレージサービス。静的サイトホスティングやデータアーカイブに最適です。
-              </p>
-              <div class="flex items-center mt-3 epson-accent text-sm">
-                <span>詳細を見る</span>
-                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="lambda.html" class="chat-card bg-white rounded-2xl p-6 block group">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-purple-200 transition-colors">
-              <i class="fas fa-bolt text-purple-600 text-lg"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900 mb-2">S3のメリットデメリット</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                サーバーレス実行環境。イベント駆動型アプリケーションの構築が可能です。
-              </p>
-              <div class="flex items-center mt-3 epson-accent text-sm">
-                <span>API テストを試す</span>
-                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="apigateway.html" class="chat-card bg-white rounded-2xl p-6 block group">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-200 transition-colors">
-              <i class="fas fa-network-wired text-blue-600 text-lg"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900 mb-2">EPSON社内での運用提案</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                RESTful APIやWebSocket APIを簡単に構築・管理できるサービスです。
-              </p>
-              <div class="flex items-center mt-3 epson-accent text-sm">
-                <span>実際に試してみる</span>
-                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <a href="chat.html" class="chat-card bg-white rounded-2xl p-6 block group">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
-              <i class="fas fa-comments text-green-600 text-lg"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-gray-900 mb-2">チャットボット</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                AWSサービスに関する質問にインテリジェントに回答します。
-              </p>
-              <div class="flex items-center mt-3 epson-accent text-sm">
-                <span>質問してみる</span>
-                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-          </div>
-        </a>
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+          AWSを活用した<br>
+          <span class="epson-accent">製造業務効率化</span>提案
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          サーバーレス技術による製造業DX推進のための具体的なソリューション提案
+        </p>
       </div>
+
+      <!-- Article Cards -->
+      <div class="space-y-6 mb-12">
+        <!-- サーバーレスとは？ -->
+        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+          <a href="s3.html" class="block">
+            <div class="p-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-server text-orange-600 text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h2 class="text-xl font-semibold text-gray-900 mb-2">サーバーレスとは？</h2>
+                  <p class="text-gray-600 leading-relaxed mb-4">
+                    サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組み。
+                    オンプレミス、仮想サーバーとの比較を通じて、管理不要で開発に集中できるメリットを詳しく解説。
+                  </p>
+                  <div class="flex items-center text-blue-600 font-medium text-sm">
+                    <span>詳しく読む</span>
+                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- S3のメリット・デメリット -->
+        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+          <a href="s3-merits.html" class="block">
+            <div class="p-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-balance-scale text-green-600 text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h2 class="text-xl font-semibold text-gray-900 mb-2">S3のメリット・デメリット</h2>
+                  <p class="text-gray-600 leading-relaxed mb-4">
+                    サーバーレスで管理不要、コスト効率が良い一方、動的処理ができない制約もあります。
+                    EC2との詳細比較や各デメリットの補完方法を具体例と共に解説します。
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center text-blue-600 font-medium text-sm">
+                      <span>詳しく読む</span>
+                      <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-400">
+                      <div class="flex items-center space-x-1">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>メリット 5項目</span>
+                      </div>
+                      <div class="flex items-center space-x-1">
+                        <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <span>デメリット 3項目</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- EPSON社内での運用提案 -->
+        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+          <a href="epson-proposals.html" class="block">
+            <div class="p-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-lightbulb text-blue-600 text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h2 class="text-xl font-semibold text-gray-900 mb-2">EPSON社内での運用提案</h2>
+                  <p class="text-gray-600 leading-relaxed mb-4">
+                    射出成型精度分析、製品選定アプリ、印刷機色分析など、AWSサービスを活用した
+                    製造業務の効率化と品質向上方法を具体例と共に詳しく紹介。実動デモも体験できます。
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center text-blue-600 font-medium text-sm">
+                      <span>提案を見る</span>
+                      <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </div>
+                    <div class="flex items-center space-x-3 text-xs">
+                      <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">デモ体験可能</span>
+                      <span class="text-gray-400">4つの活用例</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+
+
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+          <!-- Left Section -->
+          <div class="flex items-center space-x-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-cloud text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 text-sm">AWS Assistant</h3>
+              <p class="text-xs text-gray-500">セイコーエプソン インターン成果発表</p>
+            </div>
+          </div>
+          
+          <!-- Right Section -->
+          <div class="text-right">
+            <p class="text-sm text-gray-600 mb-1">📅 2025年9月1日〜5日</p>
+            <p class="text-xs text-gray-500">インターン生による AWS 活用提案プロジェクト</p>
+          </div>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="mt-6 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <p class="text-xs text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
+          <div class="flex items-center space-x-4 text-xs text-gray-400">
+            <span class="flex items-center">
+              <i class="fas fa-code mr-1"></i>
+              Built with AWS
+            </span>
+            <span class="flex items-center">
+              <i class="fas fa-heart mr-1 text-red-400"></i>
+              Made with care
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Dark mode functionality
+      function toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        
+        if (isDark) {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Initialize theme on page load
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+
+      // Listen for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          if (e.matches) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      });
+
+      // Initialize theme when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initTheme);
+      
+      // Initialize immediately for faster loading
+      initTheme();
+    </script>
   </body>
 </html>
