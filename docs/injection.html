@@ -1,134 +1,298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>射出成型精度分析 - クライアントのみデモ</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--danger:#fb7185}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    body{background:linear-gradient(180deg,#071129 0%, #081327 60%);color:#e6eef6;padding:20px}
-    .container{max-width:1100px;margin:0 auto}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:0;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    .small{font-size:13px;color:var(--muted)}
-    .controls{display:flex;flex-direction:column;gap:8px}
-    label{font-size:13px;color:var(--muted)}
-    input[type=range]{width:100%}
-    .btn{background:var(--accent);color:#021526;padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-    .diagram{display:flex;gap:8px;align-items:center;justify-content:space-between}
-    .box{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;text-align:center;flex:1}
-    .arrow{width:28px;text-align:center}
-    #chart{height:240px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:8px;padding:8px}
-    .legend{display:flex;gap:8px;align-items:center;margin-top:6px}
-    .dot{width:10px;height:10px;border-radius:50%}
-    .dot.temp{background:#ffb86b}
-    .dot.press{background:#7ee787}
-    .dot.time{background:#93c5fd}
-    .log{height:200px;overflow:auto;background:rgba(0,0,0,0.15);padding:8px;border-radius:6px;font-family:monospace;font-size:13px}
-    .alert{padding:8px;border-radius:6px;margin-bottom:6px}
-    .alert.warn{background:rgba(251,193,64,0.12);color:#ffd8a8}
-    .alert.crit{background:rgba(251,113,133,0.12);color:#ffd6dd}
-    footer{margin-top:12px;font-size:13px;color:var(--muted)}
-    .flex{display:flex;gap:8px;align-items:center}
-    .pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021526">EP</div>
-      <div>
-        <h1>射出成型精度分析 — クライアントのみデモ</h1>
-        <p class="lead">成型条件（温度・圧力・成形時間）をクライアント側でシミュレートし、API Gateway→Lambda(異常検知)→S3(保存) の流れを擬似化します。サーバーは一切不要。</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>射出成型精度分析 - AWS インターン成果発表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/main.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="bg-white zenn-border border-b">
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-industry text-white text-lg"></i>
+            </div>
+            <div>
+              <h1 class="text-xl font-semibold text-gray-900">射出成型精度分析</h1>
+              <p class="text-sm text-gray-500">AWS インターン成果発表 - 異常検知デモ</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
+              <i class="fas fa-sun text-orange-500 text-sm"></i>
+              <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
+              <i class="fas fa-moon text-blue-400 text-sm"></i>
+            </div>
+            <span class="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full text-sm font-medium">Demo</span>
+          </div>
+        </div>
       </div>
     </header>
 
-    <section class="grid">
-      <div>
-        <div class="card">
-          <h3>システムフロー</h3>
-          <div class="diagram" style="margin-top:10px">
-            <div class="box">Client<br><small class="small">センサーデータ送信</small></div>
-            <div class="arrow">→</div>
-            <div class="box">API Gateway<br><small class="small">ルーティング</small></div>
-            <div class="arrow">→</div>
-            <div class="box">Lambda<br><small class="small">異常検知・アラート</small></div>
-            <div class="arrow">→</div>
-            <div class="box">S3<br><small class="small">長期保存 (localStorage)</small></div>
-          </div>
-          <p class="small" style="margin-top:10px">※ このデモでは Lambda と S3 の挙動をブラウザ内で模倣しています。</p>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3>成型機センサー設定</h3>
-          <div class="controls" id="settings">
-            <div>
-              <label>目標温度 (°C): <span id="setTempVal">220</span></label>
-              <input id="setTemp" type="range" min="150" max="260" value="220">
-            </div>
-            <div>
-              <label>目標圧力 (MPa): <span id="setPressVal">80</span></label>
-              <input id="setPress" type="range" min="40" max="120" value="80">
-            </div>
-            <div>
-              <label>目標成形時間 (ms): <span id="setTimeVal">300</span></label>
-              <input id="setTime" type="range" min="150" max="800" value="300">
-            </div>
-
-            <div class="flex" style="margin-top:8px">
-              <button class="btn" id="sendOnce">データを1回送信</button>
-              <button class="btn-ghost" id="startStream">連続送信: 停止</button>
-              <button class="btn-ghost" id="clearStorage">S3(保存)をクリア</button>
-            </div>
-
-            <div style="margin-top:8px" class="small">送信はクライアント上でAPI Gatewayを経由してLambda(異常検知)へルーティングされ、正常ならS3に保存されます。閾値超過でアラート表示。</div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3>データ可視化</h3>
-          <div id="chart"></div>
-          <div class="legend">
-            <div class="flex"><div class="dot temp"></div><div class="small">温度 (°C)</div></div>
-            <div class="flex"><div class="dot press"></div><div class="small">圧力 (MPa)</div></div>
-            <div class="flex"><div class="dot time"></div><div class="small">成形時間 (ms)</div></div>
-          </div>
-        </div>
-
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">
+          射出成型精度分析<br>
+          <span class="epson-accent">クライアントのみデモ</span>
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          成型条件（温度・圧力・成形時間）をクライアント側でシミュレートし、API Gateway→Lambda(異常検知)→S3(保存) の流れを擬似化します。サーバーは一切不要。
+        </p>
       </div>
 
-      <aside>
-        <div class="card">
-          <h3>アラート</h3>
-          <div id="alerts"></div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3>API Gateway ログ</h3>
-          <div class="log" id="log"></div>
-          <div style="margin-top:8px" class="flex">
-            <button class="btn-ghost" id="exportJson">S3をJSONでエクスポート</button>
-            <button class="btn-ghost" id="downloadJson">ダウンロード (.json)</button>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- システムフロー -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-900 mb-6">システムフロー</h3>
+              <div class="flex items-center justify-between space-x-2 overflow-x-auto">
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-desktop text-blue-600 text-lg"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-gray-900">Client</div>
+                    <div class="text-sm text-gray-500">センサーデータ送信</div>
+                  </div>
+                </div>
+                <div class="flex items-center text-gray-400 px-2">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-route text-green-600 text-lg"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-gray-900">API Gateway</div>
+                    <div class="text-sm text-gray-500">ルーティング</div>
+                  </div>
+                </div>
+                <div class="flex items-center text-gray-400 px-2">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-bolt text-orange-600 text-lg"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-gray-900">Lambda</div>
+                    <div class="text-sm text-gray-500">異常検知・アラート</div>
+                  </div>
+                </div>
+                <div class="flex items-center text-gray-400 px-2">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="flex items-center space-x-3 min-w-0 flex-1">
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-database text-purple-600 text-lg"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-gray-900">S3</div>
+                    <div class="text-sm text-gray-500">長期保存</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                <p class="text-sm text-blue-700">
+                  <i class="fas fa-info-circle mr-2"></i>
+                  このデモでは Lambda と S3 の挙動をブラウザ内で模倣しています。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card" style="margin-top:12px">
-          <h3>保存 (S3 模擬)</h3>
-          <div class="small">保存件数: <span id="s3count">0</span></div>
-          <div style="margin-top:8px" class="log" id="s3view"></div>
+        <!-- アラート -->
+        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+              アラート
+            </h3>
+            <div id="alerts" class="space-y-2 max-h-64 overflow-y-auto"></div>
+          </div>
         </div>
-      </aside>
-    </section>
+      </div>
 
-    <footer>
-      <div class="small">ヒント: 温度・圧力・成形時間の目標を変えて『連続送信』を開始すると、擬似的なノイズやドリフトが入り、Lambda（ブラウザ内）による異常検知が働きます。保存は localStorage を使っているためブラウザを閉じても残ります。</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- 成型機センサー設定 -->
+        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">
+              <i class="fas fa-sliders-h text-gray-600 mr-2"></i>
+              成型機センサー設定
+            </h3>
+            <div class="space-y-6" id="settings">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  目標温度 (°C): <span id="setTempVal" class="font-semibold text-orange-600">220</span>
+                </label>
+                <input id="setTemp" type="range" min="150" max="260" value="220" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>150°C</span>
+                  <span>260°C</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  目標圧力 (MPa): <span id="setPressVal" class="font-semibold text-green-600">80</span>
+                </label>
+                <input id="setPress" type="range" min="40" max="120" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>40 MPa</span>
+                  <span>120 MPa</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  目標成形時間 (ms): <span id="setTimeVal" class="font-semibold text-blue-600">300</span>
+                </label>
+                <input id="setTime" type="range" min="150" max="800" value="300" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>150 ms</span>
+                  <span>800 ms</span>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-3 pt-4">
+                <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center" id="sendOnce">
+                  <i class="fas fa-paper-plane mr-2"></i>データを1回送信
+                </button>
+                <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center" id="startStream">
+                  <i class="fas fa-play mr-2"></i>連続送信: 停止
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center" id="clearStorage">
+                  <i class="fas fa-trash mr-2"></i>S3クリア
+                </button>
+              </div>
+
+              <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p class="text-sm text-gray-600">
+                  <i class="fas fa-info-circle mr-2"></i>
+                  送信はクライアント上でAPI Gatewayを経由してLambda(異常検知)へルーティングされ、正常ならS3に保存されます。閾値超過でアラート表示。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- データ可視化 -->
+        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">
+              <i class="fas fa-chart-line text-gray-600 mr-2"></i>
+              データ可視化
+            </h3>
+            <div id="chart" class="bg-gray-50 rounded-lg p-4" style="height:240px;"></div>
+            <div class="flex flex-wrap gap-4 mt-4">
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-orange-400 rounded-full"></div>
+                <span class="text-sm text-gray-600">温度 (°C)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                <span class="text-sm text-gray-600">圧力 (MPa)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+                <span class="text-sm text-gray-600">成形時間 (ms)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- API Gateway ログ -->
+        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              <i class="fas fa-terminal text-gray-600 mr-2"></i>
+              API Gateway ログ
+            </h3>
+            <div id="log" class="bg-gray-900 text-green-400 p-4 rounded-lg h-48 overflow-auto font-mono text-sm whitespace-pre-wrap"></div>
+            <div class="flex gap-3 mt-4">
+              <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium transition-colors flex items-center text-sm" id="exportJson">
+                <i class="fas fa-download mr-2"></i>JSON エクスポート
+              </button>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center text-sm" id="downloadJson">
+                <i class="fas fa-file-download mr-2"></i>ダウンロード
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- S3 保存 -->
+        <div class="bg-white rounded-xl zenn-shadow zenn-border overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              <i class="fas fa-database text-gray-600 mr-2"></i>
+              保存 (S3 模擬)
+            </h3>
+            <div class="mb-4">
+              <span class="text-sm text-gray-600">保存件数: </span>
+              <span id="s3count" class="font-semibold text-purple-600">0</span>
+            </div>
+            <div id="s3view" class="bg-gray-50 p-4 rounded-lg h-48 overflow-auto font-mono text-sm whitespace-pre-wrap text-gray-700"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+          <!-- Left Section -->
+          <div class="flex items-center space-x-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-industry text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 text-sm">射出成型精度分析</h3>
+              <p class="text-xs text-gray-500">AWS インターン成果発表 - 異常検知デモ</p>
+            </div>
+          </div>
+          
+          <!-- Right Section -->
+          <div class="text-right">
+            <p class="text-sm text-gray-600 mb-1">🏭 射出成型異常検知デモ</p>
+            <p class="text-xs text-gray-500">Lambda & S3 連携による品質管理システム</p>
+          </div>
+        </div>
+        
+        <!-- Bottom Section -->
+        <div class="mt-6 pt-4 border-t border-gray-100">
+          <p class="text-sm text-gray-600 leading-relaxed">
+            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+            <strong>ヒント:</strong> 温度・圧力・成形時間の目標を変えて『連続送信』を開始すると、擬似的なノイズやドリフトが入り、Lambda（ブラウザ内）による異常検知が働きます。保存は localStorage を使っているためブラウザを閉じても残ります。
+          </p>
+        </div>
+        
+        <div class="mt-4 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <p class="text-xs text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
+          <div class="flex items-center space-x-4 text-xs text-gray-400">
+            <span class="flex items-center">
+              <i class="fas fa-code mr-1"></i>
+              Built with AWS
+            </span>
+            <span class="flex items-center">
+              <i class="fas fa-heart mr-1 text-red-400"></i>
+              Made with care
+            </span>
+          </div>
+        </div>
+      </div>
     </footer>
-  </div>
 
 <script>
 // --- ユーティリティ & 初期設定 ---
@@ -306,8 +470,17 @@ function renderS3(){ const arr = s3_list(); s3count.textContent = arr.length; s3
 function log(msg){ const now = new Date().toLocaleTimeString(); logEl.textContent = `[${now}] ${msg}\n` + logEl.textContent; }
 
 function pushAlert(level,msg,sample){
-  const el = document.createElement('div'); el.className = 'alert ' + (level==='crit'?'crit':'warn');
-  el.textContent = `${new Date().toLocaleTimeString()} — ${msg}`;
+  const el = document.createElement('div');
+  let alertClass, iconClass;
+  if(level === 'crit') {
+    alertClass = 'bg-red-100 text-red-800 border border-red-200';
+    iconClass = 'fas fa-exclamation-circle text-red-600';
+  } else {
+    alertClass = 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+    iconClass = 'fas fa-exclamation-triangle text-yellow-600';
+  }
+  el.className = `${alertClass} p-3 rounded-lg flex items-start space-x-2 text-sm`;
+  el.innerHTML = `<i class="${iconClass} mt-0.5"></i><div><div class="font-medium">${new Date().toLocaleTimeString()}</div><div>${msg}</div></div>`;
   alertsEl.prepend(el);
   // 重要な場合はS3へも直接記録 (イベント保存)
   const events = JSON.parse(localStorage.getItem(S3_KEY + '_events') || '[]');
@@ -338,5 +511,7 @@ downloadJson.addEventListener('click',()=>{ const data = { saved: s3_list(), eve
 })();
 
 </script>
-</body>
+
+    <script src="../assets/js/theme.js"></script>
+  </body>
 </html>
