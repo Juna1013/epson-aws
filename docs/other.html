@@ -12,38 +12,38 @@
   <body class="bg-gray-50 text-gray-900 antialiased">
     <!-- Header -->
     <header class="bg-white zenn-border border-b">
-      <div class="max-w-6xl mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <i class="fas fa-handshake text-white text-lg"></i>
+      <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center space-x-3 md:space-x-4 min-w-0">
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-handshake text-white text-sm md:text-lg"></i>
             </div>
-            <div>
-              <h1 class="text-xl font-semibold text-gray-900">外部連携システム</h1>
-              <p class="text-sm text-gray-500">AWS インターン成果発表 - パートナー連携デモ</p>
+            <div class="min-w-0">
+              <h1 class="text-lg md:text-xl font-semibold text-gray-900 truncate">外部連携システム</h1>
+              <p class="text-xs md:text-sm text-gray-500 truncate">AWS インターン成果発表 - パートナー連携デモ</p>
             </div>
           </div>
-          <div class="flex items-center space-x-4">
-            <div class="flex items-center space-x-2">
+          <div class="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
+            <div class="hidden sm:flex items-center space-x-2">
               <i class="fas fa-sun text-orange-500 text-sm"></i>
               <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
               <i class="fas fa-moon text-blue-400 text-sm"></i>
             </div>
-            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Demo</span>
+            <span class="bg-indigo-100 text-indigo-700 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">Demo</span>
           </div>
         </div>
       </div>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
+    <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
       <!-- Hero Section -->
-      <div class="text-center mb-16">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">
-          外部連携システム<br>
+      <div class="text-center mb-8 md:mb-16">
+        <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          外部連携システム<br class="hidden sm:block">
           <span class="epson-accent">デモ</span>
         </h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+        <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
           パートナー企業との安全なデータ共有とリアルタイム連携をシミュレーションします。
         </p>
       </div>
