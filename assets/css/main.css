@@ -1,0 +1,192 @@
+/* Main CSS for AWS Assistant - Seiko Epson Intern Project */
+
+/* Font Configuration */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Zenn-style shadows and borders */
+.zenn-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.zenn-border {
+  border: 1px solid #e4e4e7;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Scenario button hover effects */
+.scenario-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+}
+
+/* Message animation */
+.message-animation {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0d1117;
+  color: #e6edf3;
+}
+
+.dark .bg-white {
+  background-color: #161b22 !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: #0d1117 !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: #21262d !important;
+}
+
+.dark .text-gray-900 {
+  color: #e6edf3 !important;
+}
+
+.dark .text-gray-600 {
+  color: #8b949e !important;
+}
+
+.dark .text-gray-500 {
+  color: #656d76 !important;
+}
+
+.dark .text-gray-700 {
+  color: #c9d1d9 !important;
+}
+
+.dark .border-gray-200 {
+  border-color: #30363d !important;
+}
+
+.dark .border-gray-100 {
+  border-color: #21262d !important;
+}
+
+.dark .divide-gray-100 {
+  border-color: #21262d !important;
+}
+
+.dark .zenn-border {
+  border-color: #30363d !important;
+}
+
+.dark .zenn-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .card-hover:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: #0c2d48 !important;
+}
+
+.dark .border-blue-500 {
+  border-color: #58a6ff !important;
+}
+
+.dark .text-blue-900 {
+  color: #79c0ff !important;
+}
+
+.dark .text-blue-800 {
+  color: #79c0ff !important;
+}
+
+.dark .bg-green-100 {
+  background-color: #0f2419 !important;
+}
+
+.dark .text-green-600 {
+  color: #3fb950 !important;
+}
+
+.dark .bg-red-50 {
+  background-color: #2d0c0c !important;
+}
+
+.dark .bg-orange-50 {
+  background-color: #2d1b0c !important;
+}
+
+.dark .bg-yellow-50 {
+  background-color: #2d2b0c !important;
+}
+
+.dark .bg-purple-50 {
+  background-color: #1a0c2d !important;
+}
+
+.dark .bg-indigo-50 {
+  background-color: #0c1a2d !important;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background: #30363d;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #e6edf3;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.dark .theme-toggle {
+  background: #58a6ff;
+}
+
+.dark .theme-toggle::before {
+  transform: translateX(26px);
+  background: #ffffff;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .card-hover:hover {
+    transform: none;
+  }
+}

@@ -6,17 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/main.css" rel="stylesheet">
     <style>
-      body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      }
-      .zenn-shadow {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      }
-      .zenn-border {
-        border: 1px solid #e4e4e7;
-      }
-      
       .scenario-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
@@ -27,76 +19,6 @@
       @keyframes slideUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
-      }
-      
-      /* Dark mode styles */
-      .dark {
-        color-scheme: dark;
-      }
-      
-      .dark body {
-        background-color: #0d1117;
-        color: #e6edf3;
-      }
-      
-      .dark .bg-white {
-        background-color: #161b22 !important;
-      }
-      
-      .dark .bg-gray-50 {
-        background-color: #0d1117 !important;
-      }
-      
-      .dark .text-gray-900 {
-        color: #e6edf3 !important;
-      }
-      
-      .dark .text-gray-600 {
-        color: #8b949e !important;
-      }
-      
-      .dark .text-gray-500 {
-        color: #656d76 !important;
-      }
-      
-      .dark .border-gray-200 {
-        border-color: #30363d !important;
-      }
-      
-      .dark .border-gray-100 {
-        border-color: #21262d !important;
-      }
-      
-      /* Dark mode toggle button */
-      .theme-toggle {
-        position: relative;
-        width: 50px;
-        height: 24px;
-        background: #30363d;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      
-      .theme-toggle::before {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 20px;
-        height: 20px;
-        background: #e6edf3;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
-      
-      .dark .theme-toggle {
-        background: #58a6ff;
-      }
-      
-      .dark .theme-toggle::before {
-        transform: translateX(26px);
-        background: #ffffff;
       }
     </style>
   </head>
@@ -675,285 +597,47 @@
       </nav>
     </main>
 
-    <script>
-      const toggleDemo = document.getElementById('toggleDemo');
-      const demoSection = document.getElementById('demoSection');
-      const chatMessages = document.getElementById('chatMessages');
-      const chatInput = document.getElementById('chatInput');
-      const chatForm = document.getElementById('chatForm');
-
-      // 製品データベース（デモ用）
-      const products = {
-        office: {
-          name: "EW-M973A3T",
-          type: "ビジネス複合機",
-          price: "約180,000円",
-          features: ["A3対応", "自動両面印刷", "大容量インクタンク", "無線LAN"],
-          recommendation: "月間印刷量500〜2000枚のオフィスに最適。大容量インクタンクで印刷コストを大幅削減できます。"
-        },
-        home: {
-          name: "EW-456A",
-          type: "ホーム複合機",
-          price: "約25,000円",
-          features: ["コンパクト設計", "6色インク", "スマホ連携", "Wi-Fi Direct"],
-          recommendation: "家庭での使用に最適。写真も文書もキレイに印刷でき、置き場所を選ばないコンパクト設計です。"
-        },
-        photo: {
-          name: "EP-50V",
-          type: "A3フォトプリンター", 
-          price: "約60,000円",
-          features: ["10色インク", "A3ノビ対応", "CDレーベル印刷", "色域拡張"],
-          recommendation: "写真愛好家向け。10色インクによる美しいグラデーション表現で、プロ品質の写真印刷が可能です。"
-        },
-        business: {
-          name: "LX-10050MF",
-          type: "ビジネスインクジェット",
-          price: "約320,000円", 
-          features: ["高速印刷100枚/分", "大容量給紙", "セキュリティ機能", "省電力"],
-          recommendation: "大量文書印刷に特化。高速印刷と低ランニングコストで、ビジネス文書の生産性を大幅向上させます。"
-        },
-        industrial: {
-          name: "SureColor SC-T5450M",
-          type: "大判プリンター",
-          price: "約450,000円",
-          features: ["A0対応", "4色顔料インク", "CAD図面印刷", "メンテナンス性"],
-          recommendation: "建築・設計業界向け。CAD図面や技術文書の高品質印刷に最適化された産業用大判プリンターです。"
-        }
-      };
-
-      const scenarios = {
-        office: "オフィスで月500枚程度印刷します。カラー資料も多く、A3対応が必要です。予算は20万円程度です。",
-        home: "家庭で月20枚程度、写真と文書を印刷したいです。予算は3万円以内で考えています。",
-        photo: "写真印刷が中心で、A3サイズまで対応したいです。画質重視で、予算は10万円程度です。",
-        business: "事務所で月2000枚以上印刷します。主に文書中心で高速印刷が必要です。",
-        industrial: "建築図面をA0サイズで印刷したいです。線画がくっきり出る業務用を探しています。"
-      };
-
-      // デモの表示/非表示切り替え
-      toggleDemo.addEventListener('click', function() {
-        if (demoSection.classList.contains('hidden')) {
-          demoSection.classList.remove('hidden');
-          toggleDemo.innerHTML = '<i class="fas fa-pause mr-2"></i>デモを閉じる';
-        } else {
-          demoSection.classList.add('hidden');
-          toggleDemo.innerHTML = '<i class="fas fa-play mr-2"></i>デモを開始';
-        }
-      });
-
-      function addMessage(content, isUser = false) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `flex items-start space-x-3 message-animation ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
-        
-        const iconClass = isUser ? 'fas fa-user' : 'fas fa-user-check';
-        const iconBgClass = isUser ? 'bg-blue-500' : 'bg-blue-100';
-        const iconTextClass = isUser ? 'text-white' : 'text-blue-600';
-        const messageBgClass = isUser ? 'bg-blue-500 text-white' : 'bg-white border shadow-sm';
-        
-        messageDiv.innerHTML = `
-          <div class="w-8 h-8 ${iconBgClass} rounded-full flex items-center justify-center flex-shrink-0">
-            <i class="${iconClass} ${iconTextClass} text-sm"></i>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+          <!-- Left Section -->
+          <div class="flex items-center space-x-4">
+            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <i class="fas fa-cloud text-white text-sm"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 text-sm">AWS Assistant</h3>
+              <p class="text-xs text-gray-500">セイコーエプソン インターン成果発表</p>
+            </div>
           </div>
-          <div class="${messageBgClass} rounded-2xl ${isUser ? 'rounded-tr-md' : 'rounded-tl-md'} px-4 py-3 max-w-md">
-            ${content}
+          
+          <!-- Right Section -->
+          <div class="text-right">
+            <p class="text-sm text-gray-600 mb-1">📅 2025年9月1日〜5日</p>
+            <p class="text-xs text-gray-500">インターン生による AWS 活用提案プロジェクト</p>
           </div>
-        `;
+        </div>
         
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
+        <!-- Bottom Section -->
+        <div class="mt-6 pt-4 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <p class="text-xs text-gray-400">© 2025 Seiko Epson Corporation. All rights reserved.</p>
+          <div class="flex items-center space-x-4 text-xs text-gray-400">
+            <span class="flex items-center">
+              <i class="fas fa-code mr-1"></i>
+              Built with AWS
+            </span>
+            <span class="flex items-center">
+              <i class="fas fa-heart mr-1 text-red-400"></i>
+              Made with care
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-      function generateRecommendation(input) {
-        let recommendation = '';
-        const lowerInput = input.toLowerCase();
-        
-        if (lowerInput.includes('オフィス') || lowerInput.includes('事務所') || (lowerInput.includes('500') && lowerInput.includes('枚'))) {
-          const product = products.office;
-          recommendation = `
-            <div class="space-y-3">
-              <div class="bg-blue-50 p-3 rounded-lg">
-                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
-                <p class="text-base font-bold mb-1">${product.name}</p>
-                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
-                <p class="text-sm">${product.recommendation}</p>
-              </div>
-              <div class="bg-green-50 p-3 rounded-lg">
-                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
-                <ul class="text-sm space-y-1">
-                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
-                </ul>
-              </div>
-              <div class="bg-yellow-50 p-2 rounded-lg">
-                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>S3にカタログ情報を保存、Lambdaで条件マッチング処理、API Gateway経由で営業支援アプリに連携</p>
-              </div>
-            </div>
-          `;
-        } else if (lowerInput.includes('家庭') || lowerInput.includes('ホーム') || lowerInput.includes('20枚')) {
-          const product = products.home;
-          recommendation = `
-            <div class="space-y-3">
-              <div class="bg-blue-50 p-3 rounded-lg">
-                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
-                <p class="text-base font-bold mb-1">${product.name}</p>
-                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
-                <p class="text-sm">${product.recommendation}</p>
-              </div>
-              <div class="bg-green-50 p-3 rounded-lg">
-                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
-                <ul class="text-sm space-y-1">
-                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
-                </ul>
-              </div>
-              <div class="bg-yellow-50 p-2 rounded-lg">
-                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>顧客の使用パターン分析をS3で蓄積、Lambdaでパーソナライズ推薦を自動実行</p>
-              </div>
-            </div>
-          `;
-        } else if (lowerInput.includes('写真') || lowerInput.includes('画質') || lowerInput.includes('a3')) {
-          const product = products.photo;
-          recommendation = `
-            <div class="space-y-3">
-              <div class="bg-blue-50 p-3 rounded-lg">
-                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
-                <p class="text-base font-bold mb-1">${product.name}</p>
-                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
-                <p class="text-sm">${product.recommendation}</p>
-              </div>
-              <div class="bg-green-50 p-3 rounded-lg">
-                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
-                <ul class="text-sm space-y-1">
-                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
-                </ul>
-              </div>
-              <div class="bg-yellow-50 p-2 rounded-lg">
-                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>印刷サンプル画像をS3保存、Lambdaで色分析・品質管理を自動化</p>
-              </div>
-            </div>
-          `;
-        } else if (lowerInput.includes('2000') || lowerInput.includes('大量') || lowerInput.includes('高速')) {
-          const product = products.business;
-          recommendation = `
-            <div class="space-y-3">
-              <div class="bg-blue-50 p-3 rounded-lg">
-                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
-                <p class="text-base font-bold mb-1">${product.name}</p>
-                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
-                <p class="text-sm">${product.recommendation}</p>
-              </div>
-              <div class="bg-green-50 p-3 rounded-lg">
-                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
-                <ul class="text-sm space-y-1">
-                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
-                </ul>
-              </div>
-              <div class="bg-yellow-50 p-2 rounded-lg">
-                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>印刷ログをS3蓄積、Lambdaでメンテナンス予測・消耗品自動発注システム連携</p>
-              </div>
-            </div>
-          `;
-        } else if (lowerInput.includes('図面') || lowerInput.includes('a0') || lowerInput.includes('産業') || lowerInput.includes('業務')) {
-          const product = products.industrial;
-          recommendation = `
-            <div class="space-y-3">
-              <div class="bg-blue-50 p-3 rounded-lg">
-                <h4 class="font-semibold epson-blue mb-2">🎯 おすすめ製品</h4>
-                <p class="text-base font-bold mb-1">${product.name}</p>
-                <p class="text-sm text-gray-600 mb-2">${product.type} | ${product.price}</p>
-                <p class="text-sm">${product.recommendation}</p>
-              </div>
-              <div class="bg-green-50 p-3 rounded-lg">
-                <h5 class="font-medium text-green-800 mb-2">✅ 主な特徴</h5>
-                <ul class="text-sm space-y-1">
-                  ${product.features.map(feature => `<li>• ${feature}</li>`).join('')}
-                </ul>
-              </div>
-              <div class="bg-yellow-50 p-2 rounded-lg">
-                <p class="text-xs text-gray-600"><strong>💡 AWS活用効果：</strong>CADデータをS3保存、Lambda経由で図面管理システムと連携・バージョン管理を自動化</p>
-              </div>
-            </div>
-          `;
-        } else {
-          recommendation = `
-            <p class="text-gray-800 text-sm">申し訳ございません。より具体的な情報をお教えいただけますか？</p>
-            <div class="mt-3 p-3 bg-blue-50 rounded-lg">
-              <h5 class="font-medium text-blue-800 mb-2">📝 お聞かせください</h5>
-              <ul class="text-sm text-blue-700 space-y-1">
-                <li>• 使用用途（オフィス/家庭/写真印刷など）</li>
-                <li>• 月間印刷枚数の目安</li>
-                <li>• ご予算の範囲</li>
-                <li>• カラー印刷の頻度</li>
-                <li>• 必要な用紙サイズ</li>
-              </ul>
-            </div>
-          `;
-        }
-        
-        return recommendation;
-      }
-
-      function loadScenario(type) {
-        const scenario = scenarios[type];
-        if (scenario) {
-          chatInput.value = scenario;
-          chatInput.focus();
-        }
-      }
-
-      chatForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const input = chatInput.value.trim();
-        if (!input) return;
-
-        // ユーザーメッセージを追加
-        addMessage(`<p class="text-sm">${input}</p>`, true);
-        chatInput.value = '';
-
-        // AIレスポンス
-        setTimeout(() => {
-          const recommendation = generateRecommendation(input);
-          addMessage(recommendation);
-        }, 1000);
-      });
       
-      // Dark mode functionality
-      function toggleTheme() {
-        const html = document.documentElement;
-        const isDark = html.classList.contains('dark');
-        
-        if (isDark) {
-          html.classList.remove('dark');
-          localStorage.setItem('theme', 'light');
-        } else {
-          html.classList.add('dark');
-          localStorage.setItem('theme', 'dark');
-        }
-      }
-
-      // Initialize theme on page load
-      function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-          document.documentElement.classList.add('dark');
-        }
-      }
-
-      // Listen for system theme changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-          if (e.matches) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        }
-      });
-
-      // Initialize theme when DOM is loaded
-      document.addEventListener('DOMContentLoaded', initTheme);
-      
-      // Initialize immediately for faster loading
-      initTheme();
-    </script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/demo.js"></script>
   </body>
 </html>

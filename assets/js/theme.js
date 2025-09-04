@@ -1,4 +1,9 @@
-// Shared dark mode functionality for all pages
+/**
+ * Theme Management for AWS Assistant - Seiko Epson Intern Project
+ * Handles light/dark mode toggle functionality across all pages
+ */
+
+// Dark mode functionality
 function toggleTheme() {
   const html = document.documentElement;
   const isDark = html.classList.contains('dark');
