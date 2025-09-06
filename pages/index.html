@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <title>セイコーエプソン - AWSインターン成果発表</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
   </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
+  <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
     <!-- Header -->
-    <header class="bg-white zenn-border border-b">
+    <header class="bg-white dark:bg-gray-800 zenn-border border-b border-gray-200 dark:border-gray-700">
       <div class="max-w-6xl mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
@@ -19,9 +20,14 @@
               <i class="fas fa-cloud text-white text-lg"></i>
             </div>
             <div>
-              <h1 class="text-xl font-semibold text-gray-900">AWS Assistant</h1>
-              <p class="text-sm text-gray-500">セイコーエプソン インターン成果発表</p>
+              <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">AWS Assistant</h1>
+              <p class="text-sm text-gray-500 dark:text-gray-400">セイコーエプソン インターン成果発表</p>
             </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-sun text-orange-500 text-sm"></i>
+            <div class="theme-toggle" onclick="toggleTheme()" title="ダークモード切り替え"></div>
+            <i class="fas fa-moon text-blue-400 text-sm"></i>
           </div>
         </div>
       </div>
@@ -31,11 +37,11 @@
     <main class="max-w-4xl mx-auto px-4 py-8 md:py-12">
       <!-- Hero Section -->
       <div class="text-center mb-8 md:mb-16">
-        <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           S3を活用した<br class="hidden sm:block">
           <span class="epson-accent">業務効率化の</span>提案
         </h1>
-        <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
+        <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed px-4">
           サーバーレス技術による製造業DX推進のための具体的な提案
         </p>
       </div>
@@ -43,7 +49,7 @@
       <!-- Article Cards -->
       <div class="space-y-6 mb-12">
         <!-- サーバーレスとは？ -->
-        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+        <article class="bg-white dark:bg-gray-800 rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
           <a href="guides/serverless-intro.html" class="block">
             <div class="p-6">
               <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -51,8 +57,8 @@
                   <i class="fas fa-server text-orange-600 text-lg"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-2">サーバーレスとは？</h2>
-                  <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-4">
+                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">サーバーレスとは？</h2>
+                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                     サーバーを意識せずにアプリケーションを構築・運用できるクラウドの仕組み。
                     オンプレミス、仮想サーバーとの比較を通じて、管理不要で開発に集中できるメリットを詳しく解説。
                   </p>
@@ -67,7 +73,7 @@
         </article>
 
         <!-- S3のメリット・デメリット -->
-        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+        <article class="bg-white dark:bg-gray-800 rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
           <a href="analysis/s3-merits.html" class="block">
             <div class="p-6">
               <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -75,8 +81,8 @@
                   <i class="fas fa-balance-scale text-green-600 text-lg"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-2">S3のメリット・デメリット</h2>
-                  <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-4">
+                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">S3のメリット・デメリット</h2>
+                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                     サーバーレスで管理不要、コスト効率が良い一方、動的処理ができない制約もあります。
                     EC2との詳細比較や各デメリットの補完方法を具体例と共に解説します。
                   </p>
@@ -85,7 +91,7 @@
                       <span>詳しく読む</span>
                       <i class="fas fa-arrow-right ml-2 text-xs"></i>
                     </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-400">
+                    <div class="flex items-center space-x-2 text-xs text-gray-400 dark:text-gray-500">
                       <div class="flex items-center space-x-1">
                         <div class="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span>メリット 5項目</span>
@@ -103,7 +109,7 @@
         </article>
 
         <!-- EPSON社内での運用提案 -->
-        <article class="bg-white rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
+        <article class="bg-white dark:bg-gray-800 rounded-xl zenn-shadow zenn-border card-hover overflow-hidden">
           <a href="proposals/epson-proposals.html" class="block">
             <div class="p-6">
               <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -111,8 +117,8 @@
                   <i class="fas fa-lightbulb text-blue-600 text-lg"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-2">EPSON社内での運用提案</h2>
-                  <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-4">
+                  <h2 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">EPSON社内での運用提案</h2>
+                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                     射出成型精度分析、製品選定アプリ、印刷機色分析など、AWSサービスを活用した
                     製造業務の効率化と品質向上方法を具体例と共に詳しく紹介。実動デモも体験できます。
                   </p>
@@ -123,7 +129,7 @@
                     </div>
                     <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
                       <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">デモ体験可能</span>
-                      <span class="text-gray-400">4つの活用例</span>
+                      <span class="text-gray-400 dark:text-gray-500">4つの活用例</span>
                     </div>
                   </div>
                 </div>
@@ -137,7 +143,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
       <div class="max-w-4xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <!-- Left Section -->
@@ -146,8 +152,8 @@
               <i class="fas fa-cloud text-white text-sm"></i>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-900 text-sm">AWS Assistant</h3>
-              <p class="text-xs text-gray-500">セイコーエプソン インターン成果発表</p>
+              <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">AWS Assistant</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">セイコーエプソン インターン成果発表</p>
             </div>
           </div>
           
@@ -206,5 +212,6 @@
             }
         });
       </script>
+    <script src="../assets/js/theme.js"></script>
   </body>
 </html>
