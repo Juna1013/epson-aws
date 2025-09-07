@@ -132,35 +132,6 @@ npx serve .
 - `assets/js/theme.js`: テーマ切り替え機能
 - `templates/partials/`: 共通コンポーネント
 
-### スタイルガイド
-
-- Tailwind CSS を使用したユーティリティファースト設計
-- ダークモード対応のカラーパレット
-- レスポンシブブレイクポイント
-
-## 🎨 デザインシステム
-
-### カラーパレット
-
-- **プライマリ**: Blue (500-600)
-- **アクセント**: Orange (500-600)
-- **成功**: Green (500)
-- **エラー**: Red (500)
-- **グレー**: Gray (50-900)
-
-### タイポグラフィ
-
-- **フォント**: Inter
-- **見出し**: 24px-48px (font-bold)
-- **本文**: 14px-16px (font-normal)
-- **キャプション**: 12px (font-medium)
-
-## 📱 レスポンシブ対応
-
-- **モバイル**: 〜768px
-- **タブレット**: 768px〜1024px
-- **デスクトップ**: 1024px〜
-
 ## 🚀 本番環境
 
 ### 静的サイトホスティング
@@ -194,7 +165,3 @@ npx serve .
 - [AWS Documentation](https://docs.aws.amazon.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Font Awesome](https://fontawesome.com/)
-
----
-
-© 2025 Seiko Epson Corporation. Built with ❤️ and AWS.
